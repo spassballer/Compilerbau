@@ -1,0 +1,25 @@
+data Class = Class(Type, [FieldDecl], [MethodDecl])
+data FieldDecl = Field(Type, String)
+data MethodDecl = Method(Type, String,[(Type,String)], Stmt)
+data Stmt = Block([Stmt])
+    | Return( Expr )
+    | While( Expr , Stmt )
+    | LocalVarDecl(Type, String)
+    | If(Expr, Stmt , Maybe Stmt)
+    | StmtExprStmt(StmtExpr)
+data StmtExpr = Assign(String, Expr)
+    | New(Type, [Expr])
+    | MethodCall(Expr, String, [Expr])
+data Expr = This
+    | Super
+    | LocalOrFieldVar(String)
+    | InstVar(Expr, String)
+    | Unary(String, Expr)
+    | Binary(String, Expr, Expr)
+    | Integer(Integer)
+    | Bool(Bool)
+    | Char(Char)
+    | String(String)
+    | Jnull
+    | StmtExprExpr(StmtExpr)
+type Prg = [Class]
