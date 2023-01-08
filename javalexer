@@ -1,0 +1,117 @@
+%%
+%jayscanner browserscanner
+%jayparser browserparser
+%class browserlexer
+%eofval{
+return new EOF();
+%eofval}
+
+ws = [ \t\r\n]+
+%%
+
+abstract {return new ABSTRACT(yytext());}
+assert {return new ASSERT(yytext());}
+boolean {return new BOOLEAN(yytext());}
+break {return new BREAK(yytext());}
+case {return new CASE(yytext());}
+catch {return new CATCH(yytext());}
+char {return new CHAR(yytext());}
+class {return new CLASS(yytext());}
+const { return new CLASS(yytext());}
+continue {return new CONTINUE(yytext());}
+default {return new DEFAULT(yytext());}
+do {return new DO(yytext());}
+double { return new DOUBLE(yytext());}
+else {return new ELSE(yytext());}
+enum {return new ENUM(yytext());}
+extends {return new EXTENDS(yytext());}
+final {return new FINAL(yytext());}
+finally {return new FINALLY(yytext());}
+float {return new FLOAT(yytext());}
+for {return new FOR(yytext());}
+goto {return new GOTO(yytext());}
+if {return new IF(yytext());}
+implements {return new IMPLEMENTS(yytext());}
+import {return new IMPORT(yytext());}
+instanceof {return new INSTANCEOF(yytext());}
+int {return new INT(yytext());}
+interface {return new INTERFACE(yytext());}
+long {return new LONG(yytext());}
+native {return new NATIVE(yytext());}
+new {return new NEW(yytext());}
+package {return new PACKAGE(yytext());}
+private {return new PRIVATE(yytext());}
+protected {return new PROTECTED(yytext());}
+public {return new PUBLIC(yytext());}
+return {return new RETURN(yytext());}
+short {return new SHORT(yytext());}
+static {return new STATIC(yytext());}
+strictfp {return new STRICT(yytext());}
+super {return new SUPER(yytext());}
+switch {return new SWITCH(yytext());}
+synchronized {return new SYNCHRONIZED(yytext());}
+this {return new THIS(yytext());}
+throw {return new THROW(yytext());}
+throws {return new THROWS(yytext());}
+transient {return new TRANSIENT(yytext());}
+try {return new TRY(yytext());}
+void {return new VOID(yytext());}
+volatile {return new VOLATILE(yytext());}
+while {return new WHILE(yytext());}
+
+"{" {return new CBRACKETOPEN(yytext());}
+"}" {return new CBRACKETCLOSED(yytext());}
+"(" {return new BRACKETOPEN(yytext());}
+")" {return new BRACKETCLOSED(yytext());}
+"[" {return new SBRACKETOPEN(yytext());}
+"]" {return new SBRACKETCLOSED(yytext());}
+
+"//" {return new LINECOMMENT(yytext());}
+"/*" {return new MULTILINECOMMENTSTART(yytext());}
+"*/" {return new MULTILINECOMMENTEND(yytext());}
+
+";" {return new SEMICOLON(yytext());}
+"," {return new COMMA(yytext());}
+"." {return new DOT(yytext());}
+
+"=" {return new EQUAL(yytext());}
+"==" {return new EQUALS(yytext());}
+"!=" {return new NOTEQUAL(yytext());}
+"&&" {return new AND(yytext());}
+"||" {return new OR(yytext());}
+
+"!" {return new NOT(yytext());}
+"+" {return new PLUS(yytext());}
+"-" {return new MINUS(yytext());}
+"*" {return new MULTIPLY(yytext());}
+"/" {return new DIVIDE(yytext());}
+"%" {return new MODULO(yytext());}
+
+">" {return new GREATER(yytext());}
+">=" {return new GREATEREQUAL(yytext());}
+"<" {return new LESS(yytext());}
+"<=" {return new LESSEQUAL(yytext());}
+
+"++" {return new INCREMENT(yytext());}
+"--" {return new DECREMENT(yytext());}
+
+"?" {return new QUESTIONMARK(yytext());}
+":" {return new COLON(yytext());}
+
+"+=" {return new PLUSEQUAL(yytext());}
+"-=" {return new MINUSEQUAL(yytext());}
+"*=" {return new MULTIPLYEQUAL(yytext());}
+"/=" {return new DIVIDEEQUAL(yytext());}
+"%=" {return new MODULOEQUAL(yytext());}
+
+
+"true" {return new TRUE(yytext());}
+"false" {return new FALSE(yytext());}
+"null" {return new NULL(yytext());}
+
+
+
+[a-zA-Z|" "]* { return new CONTENT(yytext());}
+
+{ws} {}
+. { }
