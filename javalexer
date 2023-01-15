@@ -110,8 +110,13 @@ while {return new WHILE(yytext());}
 "null" {return new NULL(yytext());}
 
 
+"[^"]*" {return new STRING(yytext());}
+'[^']' {return new CHAR(yytext());}
+^-?[0-9]* {return new INT(yytext());}
+^-?[0-9]*(\.[0-9]*)? {return new DOUBLE(yytext());}
 
-[a-zA-Z|" "]* { return new CONTENT(yytext());}
+
+[a-zA-Z|"_"|"-"]* { return new VARNAME(yytext());}
 
 {ws} {}
 . { }
