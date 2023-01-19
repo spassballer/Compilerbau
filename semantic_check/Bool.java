@@ -8,7 +8,7 @@ public class Bool extends Expression {
     boolean bool;
 
     @Override
-    public Typ typeCheck(Map<String, Type> localvars, Vector<Class> clarses){
+    public Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses){
         return Typ.BOOLEAN;
     }
 }
