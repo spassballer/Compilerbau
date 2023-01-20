@@ -9,7 +9,8 @@ public class InstVar extends Expression{
     String name;
 
     @Override
-    Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses) {
+    public semantic_check.Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses) {
         return null;
+        //TODO ausprogrammieren
     }
 }

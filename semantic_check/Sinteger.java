@@ -8,7 +8,8 @@ public class Sinteger extends Expression{
     Integer sinteger;
 
     @Override
-    Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses) {
+    public semantic_check.Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses) {
         return null;
+        //TODO ausprogrammieren
     }
 }

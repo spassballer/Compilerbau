@@ -10,8 +10,9 @@ public class Binary extends Expression{
     Expression exp2;
 
     @Override
-    public Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses){
-        return type;
+    public semantic_check.Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses){
+        return null;
+        //TODO ausprogrammieren
     }
 
 
