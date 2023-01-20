@@ -10,7 +10,7 @@ public class Binary extends Expression{
     Expression exp2;
 
     @Override
-    public Typ typeCheck(Map<String, Type> localvars, Vector<Class> clarses){
+    public Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses){
         return type;
     }
 

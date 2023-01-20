@@ -9,6 +9,6 @@ public class Bool extends Expression {
 
     @Override
     public Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses){
-        return Typ.BOOLEAN;
+        return null;
     }
 }
