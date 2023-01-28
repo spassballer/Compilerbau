@@ -1,5 +1,9 @@
 package semantic_check;
 
+import java.util.Map;
+import java.util.Objects;
+import java.util.Vector;
+
 public class Type {
     final String type;
     public static Type BOOLEAN = new Type("boolean");
@@ -11,5 +15,12 @@ public class Type {
 
     public Type(String type) {
         this.type = type;
+    }
+
+    public  boolean equals(Object object) {
+        if (this == object){
+            return true;
+        }
+        return false;
     }
 }
