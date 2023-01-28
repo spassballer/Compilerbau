@@ -5,7 +5,8 @@ import java.util.Vector;
 
 public class FieldDecl {
     Field field;
-    Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses) {
 
+    Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses) {
+        return null;
     }
 }

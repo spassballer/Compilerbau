@@ -8,8 +8,7 @@ public class LocalorFieldVar extends Expression{
     String local;
 
     @Override
-    public semantic_check.Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses) {
+    semantic_check.Type typeCheck(Map<String, semantic_check.Type> localvars, Vector<Class> clarses) {
         return null;
-        //TODO ausprogrammieren
     }
 }

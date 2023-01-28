@@ -6,6 +6,6 @@ import java.util.Vector;
 public class Field {
     Type type;
     Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses) {
-        return type.typeCheck(localvars,clarses);
+        return null;
     }
 }
