@@ -23,8 +23,14 @@ public class Binary extends Expression{
                     return exp1.typeCheck(localvars,clarses);
                 }
             }
+            if (operator.equals("&&") || operator.equals("||")){
+                if (exp1.typeCheck(localvars,clarses).equals(Type.BOOLEAN)){
+                    return exp1.typeCheck(localvars,clarses);
+                }
+            }
 
         }
-        return null;
+        return null; //TODO throw an error
     }
+
 }
