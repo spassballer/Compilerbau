@@ -17,10 +17,28 @@ public class Type {
         this.type = type;
     }
 
-    public  boolean equals(Object object) {
-        if (this == object){
-            return true;
-        }
-        return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Type type1 = (Type) o;
+        return Objects.equals(type, type1.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type);
+    }
+
+    public String getASMDescriptor() throws Exception {
+        if (this.equals(BOOLEAN))
+            return "Z";
+        if (this.equals(STRING))
+            return "Ljava/lang/String;";
+        if (this.equals(INTEGER))
+            return "I";
+        if (this.equals(CHAR))
+            return "C";
+        throw new Exception("Unknown type: " + this.type);
     }
 }
