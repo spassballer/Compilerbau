@@ -11,8 +11,4 @@ public class Field {
         return null;
     }
     String name;
-
-    public void codeGen(ClassWriter cw) throws Exception {
-        cw.visitField(ACC_PUBLIC, name, type.getASMDescriptor(), null, null).visitEnd();
-    }
 }

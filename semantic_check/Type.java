@@ -39,6 +39,8 @@ public class Type {
             return "I";
         if (this.equals(CHAR))
             return "C";
+        if (this.equals(VOID))
+            return "V";
         throw new Exception("Unknown type: " + this.type);
     }
 }
