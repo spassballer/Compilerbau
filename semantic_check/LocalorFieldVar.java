@@ -1,9 +1,8 @@
 package semantic_check;
 
-
 import java.util.Map;
 
-public class LocalOrFieldVar extends Expression{
+public class LocalOrFieldVar extends Expression {
 
     String name;
 
@@ -21,4 +20,5 @@ public class LocalOrFieldVar extends Expression{
         return null;
     }
     
+
 }

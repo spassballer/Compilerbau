@@ -1,3 +1,5 @@
+package semantic_check;
+
 public class Type {
     final String type;
     public static Type BOOLEAN = new Type("boolean");

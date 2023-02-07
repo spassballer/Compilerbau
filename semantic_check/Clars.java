@@ -1,3 +1,4 @@
+package semantic_check;
 import java.util.HashMap;
 
 public class Clars {
