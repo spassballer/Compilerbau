@@ -1,6 +1,6 @@
 package semantic_check;
+
 import java.util.Map;
-import java.util.Vector;
 
 public class Bool extends Expression {
     boolean bool;
@@ -10,7 +10,7 @@ public class Bool extends Expression {
     }
 
     @Override
-    Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses) {
+    Type typeCheck(Map<String, Type> localvars, Clars clars) {
         return Type.BOOLEAN;
     }
 }

@@ -1,7 +1,6 @@
 package semantic_check;
 
 import java.util.Map;
-import java.util.Vector;
 
 public class Binary extends Expression{
     String operator;
@@ -9,23 +8,23 @@ public class Binary extends Expression{
     Expression exp2;
 
     @Override
-    Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses) {
-        if (exp1.typeCheck(localvars,clarses).equals(exp2.typeCheck(localvars,clarses))){
-            if (!(exp1.typeCheck(localvars,clarses).equals(Type.INTEGER) ||
-                    exp1.typeCheck(localvars,clarses).equals(Type.STRING))){
+    Type typeCheck(Map<String, Type> localvars,Clars clars) {
+        if (exp1.typeCheck(localvars,clars).equals(exp2.typeCheck(localvars,clars))){
+            if (!(exp1.typeCheck(localvars,clars).equals(Type.INTEGER) ||
+                    exp1.typeCheck(localvars,clars).equals(Type.STRING))){
                 return null;
             }
             if (operator.equals("+")){
-                return exp1.typeCheck(localvars,clarses);
+                return exp1.typeCheck(localvars,clars);
             }
             if ("-%*".contains(operator)){
-                if (exp1.typeCheck(localvars,clarses).equals(Type.INTEGER)){
-                    return exp1.typeCheck(localvars,clarses);
+                if (exp1.typeCheck(localvars,clars).equals(Type.INTEGER)){
+                    return Type.INTEGER;
                 }
             }
             if (operator.equals("&&") || operator.equals("||")){
-                if (exp1.typeCheck(localvars,clarses).equals(Type.BOOLEAN)){
-                    return exp1.typeCheck(localvars,clarses);
+                if (exp1.typeCheck(localvars,clars).equals(Type.BOOLEAN)){
+                    return Type.BOOLEAN;
                 }
             }
 

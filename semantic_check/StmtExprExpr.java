@@ -2,11 +2,13 @@ package semantic_check;
 
 import java.util.Map;
 
-public class Sinteger extends Expression{
-    Integer sinteger;
+public class StmtExprExpr extends Expression{
+
+    StmtExpr stmtExpr;
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
-        return Type.INTEGER;
+        return stmtExpr.typeCheck(localvars, clars);
     }
+    
 }

@@ -1,11 +1,12 @@
 package semantic_check;
 
 import java.util.Map;
-import java.util.Vector;
 
-public class JNull extends Expression{
+public class Jnull extends Expression{
+
     @Override
-    Type typeCheck(Map<String, Type> localvars, Vector<Class> clarses) {
-        return null;
+    Type typeCheck(Map<String, Type> localvars, Clars clars) {
+        return Type.NULL;
     }
+    
 }
