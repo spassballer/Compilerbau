@@ -35,7 +35,7 @@ public class MethodDecl {
                 descriptor,
                 false
         );
-        method.stmt.codeGen(cw);
+        method.stmt.codeGen(mv);
         mv.visitMaxs(-1, -1);
         mv.visitEnd();
     }

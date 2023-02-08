@@ -1,6 +1,7 @@
 package semantic_check;
 
 import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
 import java.util.Vector;
@@ -13,7 +14,7 @@ public class Return extends Statement {
     }
 
     @Override
-    void codeGen(ClassWriter cw) {
+    void codeGen(MethodVisitor mv) {
 
     }
 }
