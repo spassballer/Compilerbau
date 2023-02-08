@@ -30,14 +30,9 @@ public class If {
         Label skipIfLabel = new Label();
         Label skipElseLabel = new Label();
 
-        cond.codeGen(mv); //Load condition to stack: Still TODO
+        cond.codeGen(mv); //Load condition to stack: Still TODO?
+        mv.visitJumpInsn(Opcodes.IFEQ, skipIfLabel);
 
-        if(cond instanceof Bool){
-            mv.visitJumpInsn(Opcodes.IFEQ, skipIfLabel);
-        } else if(cond instanceof Binary){
-            Binary binaryCond = (Binary) cond;
-            binaryCond.codeGen(mv);
-        }
 
         //IF BLOCK
         ifStmt.codeGen(mv);
@@ -52,10 +47,9 @@ public class If {
              */
             mv.visitJumpInsn(Opcodes.GOTO, skipElseLabel);
             mv.visitLabel(skipIfLabel);
-            if(elseStmt != null){
-                elseStmt.codeGen(mv);
-                mv.visitLabel(skipElseLabel);
-            }
+            elseStmt.codeGen(mv);
+            mv.visitLabel(skipElseLabel);
+
         }
 
 
