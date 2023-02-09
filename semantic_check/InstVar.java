@@ -31,7 +31,7 @@ public class InstVar extends Expression{
         return null;
     }
     @Override
-    void codeGen(MethodVisitor mv) {
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
 
     }
 }

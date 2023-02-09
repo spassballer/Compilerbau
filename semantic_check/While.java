@@ -16,16 +16,16 @@ public class While extends Statement{
         return null;
     }
 
-    public void codeGen(MethodVisitor mv){
+    public void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv){
         Label start = new Label();
         Label end = new Label();
 
         mv.visitLabel(start);
 
-        exp.codeGen(mv);
+        exp.codeGen(clars, methodDecl, mv);
         mv.visitJumpInsn(Opcodes.IFEQ, end);
 
-        stmt.codeGen(mv);
+        stmt.codeGen(clars, methodDecl, mv);
 
         mv.visitJumpInsn(Opcodes.GOTO, start);
         mv.visitLabel(end);

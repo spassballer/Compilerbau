@@ -47,7 +47,7 @@ public class Clars {
         }
         visitStandardConstructor(cw);
         for (MethodDecl methodDecls : methods) {
-            methodDecls.codeGen(cw);
+            methodDecls.codeGen(cw, this);
         }
     }
     public void visitStandardConstructor(ClassWriter cw) throws Exception {
@@ -62,15 +62,15 @@ public class Clars {
         constructorVisitor.visitVarInsn(ALOAD, 0);
         constructorVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
         for (FieldDecl fieldDecl : fields)
-            if (fieldDecl.innitialValue != null) {
+            if (fieldDecl.initialValue != null) {
                 constructorVisitor.visitVarInsn(ALOAD, 0);
                 if (fieldDecl.type.equals(Type.BOOLEAN))
-                    if ((boolean) fieldDecl.innitialValue)
+                    if ((boolean) fieldDecl.initialValue)
                         constructorVisitor.visitInsn(ICONST_1);
                     else
                         constructorVisitor.visitInsn(ICONST_0);
                 else
-                    constructorVisitor.visitLdcInsn(fieldDecl.innitialValue);
+                    constructorVisitor.visitLdcInsn(fieldDecl.initialValue);
                 constructorVisitor.visitFieldInsn(PUTFIELD, this.className, fieldDecl.name, fieldDecl.type.getASMDescriptor());
             }
         constructorVisitor.visitInsn(RETURN);

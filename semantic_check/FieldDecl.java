@@ -8,7 +8,7 @@ import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 public class FieldDecl {
     String name;
     Type type;
-    Object innitialValue;
+    Object initialValue;
 
     public FieldDecl(String name, Type type) {
         this.name = name;

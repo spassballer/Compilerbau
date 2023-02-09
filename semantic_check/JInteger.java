@@ -4,8 +4,8 @@ import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
 
-public class Sinteger extends Expression{
-    Integer sinteger;
+public class JInteger extends Expression{
+    int jInteger;
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
@@ -13,7 +13,7 @@ public class Sinteger extends Expression{
     }
 
     @Override
-    void codeGen(MethodVisitor mv) {
-
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
+        mv.visitLdcInsn(jInteger);
     }
 }

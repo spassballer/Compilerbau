@@ -15,7 +15,8 @@ public class Bool extends Expression {
         return Type.BOOLEAN;
     }
 
-    void codeGen(MethodVisitor mv){
+    @Override
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv){
         mv.visitInsn(bool ? Opcodes.ICONST_1 : Opcodes.ICONST_0);
     }
 }

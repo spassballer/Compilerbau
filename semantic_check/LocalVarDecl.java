@@ -1,4 +1,5 @@
 package semantic_check;
+import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
@@ -24,7 +25,7 @@ public class LocalVarDecl extends Statement{
     }
 
     @Override
-    void codeGen(MethodVisitor mv) {
-
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
+        methodDecl.localVar.add(new LocalOrFieldVar(varName));
     }
 }

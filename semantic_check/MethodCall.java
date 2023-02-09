@@ -1,5 +1,7 @@
 package semantic_check;
 
+import org.objectweb.asm.MethodVisitor;
+
 import java.util.Map;
 
 public class MethodCall extends StmtExpr{
@@ -29,5 +31,10 @@ public class MethodCall extends StmtExpr{
         }
         return myMethodDecl.returnType;
     }
-    
+
+    @Override
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
+
+    }
+
 }

@@ -1,4 +1,6 @@
 package semantic_check;
+import org.objectweb.asm.MethodVisitor;
+
 import java.util.Map;
 
 public class New extends StmtExpr {
@@ -23,6 +25,11 @@ public class New extends StmtExpr {
         }
         //TODO Exception invalid type
         return null;
+    }
+
+    @Override
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
+
     }
 
 }

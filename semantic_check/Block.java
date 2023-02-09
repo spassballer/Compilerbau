@@ -1,5 +1,7 @@
 package semantic_check;
 import java.util.Map;
+
+import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
 public class Block extends Statement{
@@ -29,10 +31,11 @@ public class Block extends Statement{
         return null;
     }
 
-    public void codeGen(MethodVisitor mv){
-        firstStmt.codeGen(mv);
+    @Override
+    public void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv){
+        firstStmt.codeGen(clars, methodDecl, mv);
         for (Statement statement: stm){
-            statement.codeGen(mv);
+            statement.codeGen(clars, methodDecl, mv);
         }
     }
 }

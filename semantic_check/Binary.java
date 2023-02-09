@@ -36,7 +36,8 @@ public class Binary extends Expression {
         return null; //TODO throw an error
     }
 
-    void codeGen(MethodVisitor mv) {
+    @Override
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
         int ifOpcode = 0;
 
         if(operator.equals("&&")){
@@ -44,10 +45,10 @@ public class Binary extends Expression {
             Label finish = new Label();
 
             //Load exp1, if false: jump to Label notEqualTrue
-            exp1.codeGen(mv);
+            exp1.codeGen(clars, methodDecl, mv);
             mv.visitJumpInsn(Opcodes.IFEQ, notEqualTrue);
             //Do the same for exp2
-            exp2.codeGen(mv);
+            exp2.codeGen(clars, methodDecl, mv);
             mv.visitJumpInsn(Opcodes.IFEQ, notEqualTrue);
 
             //Load true, then jump label finish
@@ -68,11 +69,11 @@ public class Binary extends Expression {
             Label finish = new Label();
 
             //Load exp1, if true: jump to Label equalTrue
-            exp1.codeGen(mv);
+            exp1.codeGen(clars, methodDecl, mv);
             mv.visitJumpInsn(Opcodes.IFNE, equalTrue);
 
             //Load exp2, if false: jump to Label notEqualTrue
-            exp2.codeGen(mv);
+            exp2.codeGen(clars, methodDecl, mv);
             mv.visitJumpInsn(Opcodes.IFEQ, notEqualTrue);
 
             //visit Label equalTrue, load true, go to Label finish
@@ -86,8 +87,8 @@ public class Binary extends Expression {
 
             mv.visitLabel(finish);
         } else if (operator.equals("+") || operator.equals("-") || operator.equals("/") || operator.equals("*")) {
-            exp1.codeGen(mv);
-            exp2.codeGen(mv);
+            exp1.codeGen(clars, methodDecl, mv);
+            exp2.codeGen(clars, methodDecl, mv);
             switch (operator){
                 case "+":
                     if(exp1 instanceof JString && exp2 instanceof JString){
@@ -112,8 +113,8 @@ public class Binary extends Expression {
             Label notEqual = new Label();
             Label finish = new Label();
 
-            exp1.codeGen(mv);
-            exp2.codeGen(mv);
+            exp1.codeGen(clars, methodDecl, mv);
+            exp2.codeGen(clars, methodDecl, mv);
 
             switch (operator) {
                 case "==" -> mv.visitJumpInsn(Opcodes.IF_ICMPNE, notEqual);

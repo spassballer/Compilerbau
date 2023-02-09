@@ -4,6 +4,8 @@ import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
 
+import static org.objectweb.asm.Opcodes.ALOAD;
+
 public class This extends Expression{
     
     @Override
@@ -12,8 +14,8 @@ public class This extends Expression{
     }
 
     @Override
-    void codeGen(MethodVisitor mv) {
-
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
+        mv.visitVarInsn(ALOAD, 0);
     }
 
 }

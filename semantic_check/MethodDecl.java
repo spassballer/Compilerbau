@@ -1,8 +1,10 @@
 package semantic_check;
 
 import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import static org.objectweb.asm.Opcodes.*;
@@ -12,6 +14,8 @@ public class MethodDecl {
     public Type returnType;
     public Parameter[] parameters;
     public Block block;
+    ArrayList<LocalOrFieldVar> localVar = new ArrayList<LocalOrFieldVar>();
+    public Label endLabel;
 
     public MethodDecl(String name, Type returnType, Parameter[] parameters, Block block) {
         this.name = name;
@@ -44,13 +48,16 @@ public class MethodDecl {
         return returnType;
     }
 
-    public void codeGen(ClassWriter cw) throws Exception {
+    public void codeGen(ClassWriter cw, Clars clars) throws Exception {
+        localVar.add(new LocalOrFieldVar("this"));
+        for (Parameter parameter : parameters) {
+            localVar.add(new LocalOrFieldVar(parameter.name));
+        }
         StringBuilder parameterTypes = new StringBuilder();
         for (Parameter parameter : parameters) {
             parameterTypes.append(parameter.type.getASMDescriptor());
         }
         String descriptor = "("+parameterTypes+")"+returnType.getASMDescriptor();
-
         MethodVisitor mv = cw.visitMethod(
                 ACC_PUBLIC,
                 name,
@@ -60,7 +67,8 @@ public class MethodDecl {
         );
         mv.visitCode();
         mv.visitVarInsn(ALOAD, 0);
-        block.codeGen(mv);
+        block.codeGen(clars, this, mv);
+        mv.visitLabel(endLabel);
         mv.visitMaxs(-1, -1);
         mv.visitEnd();
     }

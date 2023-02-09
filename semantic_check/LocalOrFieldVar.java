@@ -7,7 +7,12 @@ import java.util.Objects;
 
 public class LocalOrFieldVar extends Expression {
 
+
     String name;
+
+    public LocalOrFieldVar(String name) {
+        this.name = name;
+    }
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
@@ -24,7 +29,7 @@ public class LocalOrFieldVar extends Expression {
     }
 
     @Override
-    void codeGen(MethodVisitor mv) {
-
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
+        //lade localVar/Field auf den Stack??
     }
 }
