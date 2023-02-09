@@ -14,8 +14,8 @@ public class StmtExprExpr extends Expression{
     }
 
     @Override
-    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
-
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
+        stmtExpr.codeGen(clars, methodDecl, mv);
     }
 
 }

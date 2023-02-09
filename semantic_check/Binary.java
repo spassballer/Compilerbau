@@ -37,7 +37,7 @@ public class Binary extends Expression {
     }
 
     @Override
-    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
         int ifOpcode = 0;
 
         if(operator.equals("&&")){

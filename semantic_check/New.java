@@ -3,6 +3,8 @@ import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
 
+import static org.objectweb.asm.Opcodes.*;
+
 public class New extends StmtExpr {
 
     Type type;
@@ -28,8 +30,15 @@ public class New extends StmtExpr {
     }
 
     @Override
-    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception { //TODO alles TODO, keine Ahnung, ob das klappt
+        mv.visitTypeInsn(NEW, type.getASMDescriptor());
+        mv.visitInsn(DUP);
 
+        for(Expression exp: expressions){ //TODO muss das vielleicht als erstes ausgeführt werden?
+            exp.codeGen(clars, methodDecl, mv);
+        }
+
+        mv.visitMethodInsn(INVOKESPECIAL, type.getASMDescriptor(), "<init>", "()V", false); //TODO ist getASMDescriptor hier richtig? Ist ()V hier richtig?
     }
 
 }

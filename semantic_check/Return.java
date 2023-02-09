@@ -15,7 +15,7 @@ public class Return extends Statement implements Opcodes {
     }
 
     @Override
-    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
 
         if (expression!= null) {
             expression.codeGen(clars, methodDecl, mv);

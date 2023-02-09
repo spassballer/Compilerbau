@@ -13,5 +13,5 @@ public abstract class Expression {
 
     abstract Type typeCheck(Map<String,Type> localvars,Clars clars);
 
-    abstract void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv);
+    abstract void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception;
 }

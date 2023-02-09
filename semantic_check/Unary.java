@@ -37,7 +37,7 @@ public class Unary extends Expression{
     }
 
     @Override
-    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
         switch (operator){
             case "+":
                 break;

@@ -16,7 +16,7 @@ public class While extends Statement{
         return null;
     }
 
-    public void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv){
+    public void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
         Label start = new Label();
         Label end = new Label();
 

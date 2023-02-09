@@ -32,7 +32,7 @@ public class Block extends Statement{
     }
 
     @Override
-    public void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv){
+    public void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
         firstStmt.codeGen(clars, methodDecl, mv);
         for (Statement statement: stm){
             statement.codeGen(clars, methodDecl, mv);

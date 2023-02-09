@@ -25,7 +25,7 @@ public class If extends Statement {
 
 
     @Override
-    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv){
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
 
         Label skipIfLabel = new Label();
         Label skipElseLabel = new Label();
