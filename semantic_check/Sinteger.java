@@ -9,7 +9,7 @@ public class Sinteger extends Expression{
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
-        return Type.INTEGER;
+        return Type.INT;
     }
 
     @Override

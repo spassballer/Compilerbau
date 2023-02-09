@@ -15,7 +15,7 @@ public class LocalVarDecl extends Statement{
         }
         if (!(varType.equals(Type.BOOLEAN)
                 || varType.equals(Type.CHAR)
-                || varType.equals(Type.INTEGER)
+                || varType.equals(Type.INT)
                 || varType.equals(Type.STRING))) {
             //TODO Exception invalid Type
         }

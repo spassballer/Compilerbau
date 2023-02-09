@@ -1,5 +1,7 @@
 package semantic_check;
 
+import org.objectweb.asm.MethodVisitor;
+
 import java.util.Map;
 
 public class Super extends Expression{
@@ -8,5 +10,10 @@ public class Super extends Expression{
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
         return Type.OBJECT;
     }
-    
+
+    @Override
+    void codeGen(MethodVisitor mv) {
+
+    }
+
 }

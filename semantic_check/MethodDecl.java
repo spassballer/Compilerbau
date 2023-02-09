@@ -28,7 +28,7 @@ public class MethodDecl {
         }
         if (!(returnType.equals(Type.BOOLEAN)
                 || returnType.equals(Type.CHAR)
-                || returnType.equals(Type.INTEGER)
+                || returnType.equals(Type.INT)
                 || returnType.equals(Type.STRING)
                 || returnType.equals(Type.VOID))) {
             // TODO Exception

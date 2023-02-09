@@ -1,5 +1,7 @@
 package semantic_check;
 
+import org.objectweb.asm.MethodVisitor;
+
 import java.util.Map;
 
 public class StmtExprStmt extends Statement {
@@ -10,6 +12,11 @@ public class StmtExprStmt extends Statement {
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
         stmtExpr.typeCheck(localVars, clars);
         return Type.VOID;
+    }
+
+    @Override
+    void codeGen(MethodVisitor mv) {
+
     }
 
 }

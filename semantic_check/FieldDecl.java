@@ -12,7 +12,7 @@ public class FieldDecl {
     Type typeCheck(Map<String,Type> localVars, Clars clars){
         if(!(type.equals(Type.BOOLEAN)
                 || type.equals(Type.CHAR)
-                || type.equals(Type.INTEGER)
+                || type.equals(Type.INT)
                 || type.equals(Type.STRING))){
             // TODO Exception
         }

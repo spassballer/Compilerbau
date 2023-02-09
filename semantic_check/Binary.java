@@ -14,7 +14,7 @@ public class Binary extends Expression {
     @Override
     Type typeCheck(Map<String, Type> localvars,Clars clars) {
         if (exp1.typeCheck(localvars,clars).equals(exp2.typeCheck(localvars,clars))){
-            if (!(exp1.typeCheck(localvars,clars).equals(Type.INTEGER) ||
+            if (!(exp1.typeCheck(localvars,clars).equals(Type.INT) ||
                     exp1.typeCheck(localvars,clars).equals(Type.STRING))){
                 return null;
             }
@@ -22,8 +22,8 @@ public class Binary extends Expression {
                 return exp1.typeCheck(localvars,clars);
             }
             if ("-%*".contains(operator)){
-                if (exp1.typeCheck(localvars,clars).equals(Type.INTEGER)){
-                    return Type.INTEGER;
+                if (exp1.typeCheck(localvars,clars).equals(Type.INT)){
+                    return Type.INT;
                 }
             }
             if (operator.equals("&&") || operator.equals("||")){
