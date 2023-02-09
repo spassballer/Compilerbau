@@ -4,6 +4,9 @@ import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
 
+import static org.objectweb.asm.Opcodes.BIPUSH;
+import static org.objectweb.asm.Opcodes.ISTORE;
+
 public class Char extends Expression{
     char schar;
 

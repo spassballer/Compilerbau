@@ -1,8 +1,12 @@
 package semantic_check;
 
+import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
+
+import static org.objectweb.asm.Opcodes.*;
+import static org.objectweb.asm.Opcodes.ICONST_0;
 
 public class Unary extends Expression{
 
@@ -34,7 +38,32 @@ public class Unary extends Expression{
 
     @Override
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
+        switch (operator){
+            case "+":
+                break;
+            case "-":
+                expr.codeGen(clars, methodDecl, mv);
+                mv.visitInsn(INEG);
+                break;
+            case "++":
+                mv.visitIincInsn(1, 1); //TODO var not 1 but index of the variable to increment
+                break;
+            case "--":
+                mv.visitIincInsn(2, -1); //TODO same as above
+                break;
+            case "!":
+                Label notEqual = new Label();
+                Label finish = new Label();
 
+                expr.codeGen(clars, methodDecl, mv);
+                mv.visitJumpInsn(IFNE, notEqual);
+                mv.visitInsn(ICONST_1);
+                mv.visitJumpInsn(GOTO, finish);
+                mv.visitLabel(notEqual);
+                mv.visitInsn(ICONST_0);
+                mv.visitLabel(finish);
+                break;
+        }
     }
 
 }
