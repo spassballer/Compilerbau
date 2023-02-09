@@ -1,12 +1,19 @@
 package semantic_check;
+import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
-import java.util.Vector;
 
-public class Return extends Statement {
+public class Return extends Statement{
+
     Expression expression;
+
     @Override
-    public Type typeCheck(Map<String, Type> localVars, Vector<Class> clarses) {
-        return null;
+    Type typeCheck(Map<String, Type> localVars, Clars clars) {
+        return expression.typeCheck(localVars, clars);
+    }
+
+    @Override
+    void codeGen(MethodVisitor mv) {
+
     }
 }

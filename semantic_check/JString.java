@@ -4,16 +4,17 @@ import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
 
-public class Sinteger extends Expression{
-    Integer sinteger;
+public class JString extends Expression{
+    String str;
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
-        return Type.INTEGER;
+        return Type.STRING;
     }
 
     @Override
     void codeGen(MethodVisitor mv) {
 
     }
+
 }

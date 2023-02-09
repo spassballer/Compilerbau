@@ -1,8 +1,5 @@
 package semantic_check;
-
-import java.util.Map;
 import java.util.Objects;
-import java.util.Vector;
 
 public class Type {
     final String type;
@@ -12,17 +9,15 @@ public class Type {
     public static Type VOID = new Type("void");
     public static Type CHAR = new Type("char");
     public static Type NULL = new Type("null");
+    public static Type THIS = new Type("this");
+    public static Type OBJECT = new Type("object");
 
     public Type(String type) {
         this.type = type;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Type type1 = (Type) o;
-        return Objects.equals(type, type1.type);
+    public  boolean equals(Type type) {
+        return this.type.equals(type.type);
     }
 
     @Override
@@ -39,6 +34,8 @@ public class Type {
             return "I";
         if (this.equals(CHAR))
             return "C";
+        if (this.equals(VOID))
+            return "V";
         throw new Exception("Unknown type: " + this.type);
     }
 }
