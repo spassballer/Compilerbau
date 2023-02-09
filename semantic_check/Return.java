@@ -1,4 +1,6 @@
 package semantic_check;
+import org.objectweb.asm.MethodVisitor;
+
 import java.util.Map;
 
 public class Return extends Statement{
@@ -10,4 +12,8 @@ public class Return extends Statement{
         return expression.typeCheck(localVars, clars);
     }
 
+    @Override
+    void codeGen(MethodVisitor mv) {
+
+    }
 }

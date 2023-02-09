@@ -1,5 +1,9 @@
 package semantic_check;
+import org.objectweb.asm.ClassWriter;
+
 import java.util.Map;
+
+import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 
 public class FieldDecl {
     String name;
@@ -18,5 +22,9 @@ public class FieldDecl {
             }
         }
         return type;
+    }
+
+    public void codeGen(ClassWriter cw) throws Exception {
+        cw.visitField(ACC_PUBLIC, name, type.getASMDescriptor(), null, null).visitEnd();
     }
 }

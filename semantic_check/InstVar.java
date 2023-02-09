@@ -1,5 +1,7 @@
 package semantic_check;
 
+import org.objectweb.asm.MethodVisitor;
+
 import java.util.Map;
 
 public class InstVar extends Expression{
@@ -28,5 +30,8 @@ public class InstVar extends Expression{
         //TODO Exception: Expression must be a valid Class type
         return null;
     }
-    
+    @Override
+    void codeGen(MethodVisitor mv) {
+
+    }
 }

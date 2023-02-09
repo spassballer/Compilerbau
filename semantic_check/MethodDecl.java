@@ -1,6 +1,11 @@
 package semantic_check;
 
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
+
 import java.util.Map;
+
+import static org.objectweb.asm.Opcodes.*;
 
 public class MethodDecl {
     public String name;
@@ -38,4 +43,36 @@ public class MethodDecl {
         }
         return returnType;
     }
+    public void codeGen(ClassWriter cw) throws Exception {
+        StringBuilder parameterTypes = new StringBuilder();
+        for (Parameter parameter : parameters) {
+            parameterTypes.append(parameter.type.getASMDescriptor());
+        }
+        String descriptor = "("+parameterTypes+")"+returnType.getASMDescriptor();
+
+        MethodVisitor mv = cw.visitMethod(
+                ACC_PUBLIC,
+                name,
+                descriptor,
+                null,
+                null
+        );
+        for (Parameter parameter : parameters) {
+            mv.visitParameter(parameter.name, ACC_PRIVATE);
+        }
+
+        mv.visitCode();
+        mv.visitVarInsn(ALOAD, 0);
+        mv.visitMethodInsn(
+                INVOKESPECIAL,
+                "java/lang/Object",
+                name,
+                descriptor,
+                false
+        );
+        block.codeGen(mv);
+        mv.visitMaxs(-1, -1);
+        mv.visitEnd();
+    }
 }
+

@@ -1,5 +1,7 @@
 package semantic_check;
 
+import org.objectweb.asm.MethodVisitor;
+
 import java.util.Map;
 
 public class LocalOrFieldVar extends Expression {
@@ -19,6 +21,9 @@ public class LocalOrFieldVar extends Expression {
         // TODO Exception not defined
         return null;
     }
-    
 
+    @Override
+    void codeGen(MethodVisitor mv) {
+
+    }
 }

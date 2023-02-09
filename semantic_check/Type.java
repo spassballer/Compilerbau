@@ -1,4 +1,5 @@
 package semantic_check;
+import java.util.Objects;
 
 public class Type {
     final String type;
@@ -15,10 +16,26 @@ public class Type {
         this.type = type;
     }
 
-    public  boolean equals(Object object) {
-        if (this == object){
-            return true;
-        }
-        return false;
+    public  boolean equals(Type type) {
+        return this.type.equals(type.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type);
+    }
+
+    public String getASMDescriptor() throws Exception {
+        if (this.equals(BOOLEAN))
+            return "Z";
+        if (this.equals(STRING))
+            return "Ljava/lang/String;";
+        if (this.equals(INTEGER))
+            return "I";
+        if (this.equals(CHAR))
+            return "C";
+        if (this.equals(VOID))
+            return "V";
+        throw new Exception("Unknown type: " + this.type);
     }
 }

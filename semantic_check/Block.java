@@ -1,5 +1,7 @@
 package semantic_check;
 import java.util.Map;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
 
 public class Block extends Statement{
 
@@ -30,4 +32,10 @@ public class Block extends Statement{
         return null;
     }
 
+    public void codeGen(MethodVisitor mv){
+        firstStmt.codeGen(mv);
+        for (Statement statement: stm){
+            statement.codeGen(mv);
+        }
+    }
 }

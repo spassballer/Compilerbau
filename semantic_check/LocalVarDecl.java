@@ -1,4 +1,6 @@
 package semantic_check;
+import org.objectweb.asm.MethodVisitor;
+
 import java.util.Map;
 
 public class LocalVarDecl extends Statement{
@@ -19,5 +21,10 @@ public class LocalVarDecl extends Statement{
         }
         localVars.put(varName, varType);
         return varType;
+    }
+
+    @Override
+    void codeGen(MethodVisitor mv) {
+
     }
 }
