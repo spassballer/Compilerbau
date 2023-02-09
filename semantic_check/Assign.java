@@ -24,7 +24,7 @@ public class Assign extends StmtExpr {
             Type expressionType = expression.typeCheck(localVars, clars);
             if(varType.equals(expressionType) 
                     // primitive types must not be null
-                || (!(varType.equals(Type.BOOLEAN) || varType.equals(Type.CHAR) || varType.equals(Type.INTEGER)) 
+                || (!(varType.equals(Type.BOOLEAN) || varType.equals(Type.CHAR) || varType.equals(Type.INT))
                     && expressionType.equals(Type.NULL))){
                 return varType;
             }
