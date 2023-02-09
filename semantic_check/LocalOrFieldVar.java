@@ -3,6 +3,7 @@ package semantic_check;
 import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class LocalOrFieldVar extends Expression {
 
@@ -14,7 +15,7 @@ public class LocalOrFieldVar extends Expression {
             return localvars.get(name);
         }
         for(FieldDecl fieldVar : clars.fields){
-            if(fieldVar.name == name){
+            if(Objects.equals(fieldVar.name, name)){
                 return fieldVar.type;
             }
         }

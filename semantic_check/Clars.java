@@ -2,7 +2,10 @@ package semantic_check;
 import java.util.HashMap;
 
 import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
+
+import static org.objectweb.asm.Opcodes.*;
 
 public class Clars {
     Type name;
@@ -36,13 +39,42 @@ public class Clars {
                 className,
                 null,
                 "java/lang/Object",
-                null);
+                null
+        );
 
         for (FieldDecl fieldDecl : fields) {
             fieldDecl.codeGen(cw);
         }
+        visitStandardConstructor(cw);
         for (MethodDecl methodDecls : methods) {
             methodDecls.codeGen(cw);
         }
+    }
+    public void visitStandardConstructor(ClassWriter cw) throws Exception {
+        MethodVisitor constructorVisitor = cw.visitMethod(
+                ACC_PUBLIC,
+                "<init>",
+                "()V",
+                null,
+                null
+        );
+        constructorVisitor.visitCode();
+        constructorVisitor.visitVarInsn(ALOAD, 0);
+        constructorVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
+        for (FieldDecl fieldDecl : fields)
+            if (fieldDecl.innitialValue != null) {
+                constructorVisitor.visitVarInsn(ALOAD, 0);
+                if (fieldDecl.type.equals(Type.BOOLEAN))
+                    if ((boolean) fieldDecl.innitialValue)
+                        constructorVisitor.visitInsn(ICONST_1);
+                    else
+                        constructorVisitor.visitInsn(ICONST_0);
+                else
+                    constructorVisitor.visitLdcInsn(fieldDecl.innitialValue);
+                constructorVisitor.visitFieldInsn(PUTFIELD, this.className, fieldDecl.name, fieldDecl.type.getASMDescriptor());
+            }
+        constructorVisitor.visitInsn(RETURN);
+        constructorVisitor.visitMaxs(-1, -1);
+        constructorVisitor.visitEnd();
     }
 }

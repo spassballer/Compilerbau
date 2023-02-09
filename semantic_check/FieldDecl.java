@@ -8,6 +8,12 @@ import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 public class FieldDecl {
     String name;
     Type type;
+    Object innitialValue;
+
+    public FieldDecl(String name, Type type) {
+        this.name = name;
+        this.type = type;
+    }
 
     Type typeCheck(Map<String,Type> localVars, Clars clars){
         if(!(type.equals(Type.BOOLEAN)

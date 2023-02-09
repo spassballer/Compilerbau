@@ -43,6 +43,7 @@ public class MethodDecl {
         }
         return returnType;
     }
+
     public void codeGen(ClassWriter cw) throws Exception {
         StringBuilder parameterTypes = new StringBuilder();
         for (Parameter parameter : parameters) {
@@ -57,19 +58,8 @@ public class MethodDecl {
                 null,
                 null
         );
-        for (Parameter parameter : parameters) {
-            mv.visitParameter(parameter.name, ACC_PRIVATE);
-        }
-
         mv.visitCode();
         mv.visitVarInsn(ALOAD, 0);
-        mv.visitMethodInsn(
-                INVOKESPECIAL,
-                "java/lang/Object",
-                name,
-                descriptor,
-                false
-        );
         block.codeGen(mv);
         mv.visitMaxs(-1, -1);
         mv.visitEnd();

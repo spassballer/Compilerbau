@@ -1,5 +1,7 @@
 package semantic_check;
 
+import org.objectweb.asm.MethodVisitor;
+
 import java.util.Map;
 
 public class Unary extends Expression{
@@ -29,5 +31,10 @@ public class Unary extends Expression{
         //TODO Exception invalid blabla bla
         return null;
     }
-    
+
+    @Override
+    void codeGen(MethodVisitor mv) {
+
+    }
+
 }

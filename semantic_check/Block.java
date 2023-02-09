@@ -1,6 +1,5 @@
 package semantic_check;
 import java.util.Map;
-import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 
 public class Block extends Statement{
@@ -19,9 +18,7 @@ public class Block extends Statement{
             return firstStmt.typeCheck(localVars, clars);
         }
         Statement[] nextStm = new Statement[stm.length-1];
-        for(int i = 1; i<nextStm.length; i++){
-            nextStm[i-1] =stm[i];
-        }
+        if (nextStm.length - 1 >= 0) System.arraycopy(stm, 1, nextStm, 0, nextStm.length - 1);
         if(firstStmt==null){
             return new Block(stm[0],nextStm).typeCheck(localVars, clars);
         }
