@@ -1,1 +1,4 @@
-!/.idea/workspace.xml
+/out/
+*.class
+/.idea/
+/Compilerbau.iml
