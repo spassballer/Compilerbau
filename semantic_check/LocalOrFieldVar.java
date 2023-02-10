@@ -15,6 +15,19 @@ public class LocalOrFieldVar extends Expression {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LocalOrFieldVar that = (LocalOrFieldVar) o;
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
         if(localvars.containsKey(name)){
             return localvars.get(name);
@@ -30,6 +43,6 @@ public class LocalOrFieldVar extends Expression {
 
     @Override
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
-        //lade localVar/Field auf den Stack??
+        //TODO: lade localVar/Field auf den Stack??
     }
 }

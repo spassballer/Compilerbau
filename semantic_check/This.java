@@ -1,12 +1,12 @@
 package semantic_check;
 
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 import java.util.Map;
 
-import static org.objectweb.asm.Opcodes.ALOAD;
 
-public class This extends Expression{
+public class This extends Expression implements Opcodes {
     
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {

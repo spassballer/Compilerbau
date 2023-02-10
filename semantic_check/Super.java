@@ -13,7 +13,7 @@ public class Super extends Expression{
 
     @Override
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
-
+        //not needed for mini compiler
     }
 
 }

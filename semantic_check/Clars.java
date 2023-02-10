@@ -62,7 +62,7 @@ public class Clars {
         constructorVisitor.visitVarInsn(ALOAD, 0);
         constructorVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
         for (FieldDecl fieldDecl : fields)
-            if (fieldDecl.initialValue != null) {
+            if (fieldDecl.initialValue != null) { //TODO
                 constructorVisitor.visitVarInsn(ALOAD, 0);
                 if (fieldDecl.type.equals(Type.BOOLEAN))
                     if ((boolean) fieldDecl.initialValue)

@@ -1,5 +1,7 @@
 package semantic_check;
 
+import org.objectweb.asm.MethodVisitor;
+
 import java.util.Map;
 
 class Parameter {
@@ -20,5 +22,8 @@ class Parameter {
 
         }
         return type;
+    }
+    void codeGen(MethodDecl methodDecl) throws Exception {
+        methodDecl.localVar.add(new LocalOrFieldVar(name));
     }
 }

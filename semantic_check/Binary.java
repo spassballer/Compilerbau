@@ -89,24 +89,18 @@ public class Binary extends Expression {
         } else if (operator.equals("+") || operator.equals("-") || operator.equals("/") || operator.equals("*")) {
             exp1.codeGen(clars, methodDecl, mv);
             exp2.codeGen(clars, methodDecl, mv);
-            switch (operator){
-                case "+":
-                    if(exp1 instanceof JString && exp2 instanceof JString){
+            switch (operator) {
+                case "+" -> {
+                    if (exp1 instanceof JString && exp2 instanceof JString) {
                         //Append strings
                         mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/String", "concat", "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;", false);
                     } else {
                         mv.visitInsn(Opcodes.IADD);
                     }
-                    break;
-                case "-":
-                    mv.visitInsn(Opcodes.ISUB);
-                    break;
-                case "/":
-                    mv.visitInsn(Opcodes.IDIV);
-                    break;
-                case "*":
-                    mv.visitInsn(Opcodes.IMUL);
-                    break;
+                }
+                case "-" -> mv.visitInsn(Opcodes.ISUB);
+                case "/" -> mv.visitInsn(Opcodes.IDIV);
+                case "*" -> mv.visitInsn(Opcodes.IMUL);
             }
         }
         else {

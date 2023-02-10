@@ -42,8 +42,8 @@ public class Assign extends StmtExpr implements Opcodes {
 
     @Override
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
-        int index;
-        index = methodDecl.localVar.indexOf(localOrFieldVar);
+        int index = methodDecl.getIndexOfLocalVar(localOrFieldVar);
+
         if (index == -1)
             mv.visitVarInsn(ALOAD, 0);
         expression.codeGen(clars, methodDecl, mv);
@@ -55,5 +55,4 @@ public class Assign extends StmtExpr implements Opcodes {
         else
             mv.visitFieldInsn(PUTFIELD, clars.className, name, expression.type.getASMDescriptor());
     }
-
 }
