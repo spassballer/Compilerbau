@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class MethodCall extends StmtExpr implements Opcodes {
 
-    Expression expression;
+    Expression returnExpression;
     String name;
     Expression[] expressions;
 
@@ -38,7 +38,7 @@ public class MethodCall extends StmtExpr implements Opcodes {
         StringBuilder parameterTypes = new StringBuilder();
         for (Expression expression : expressions)
             parameterTypes.append(expression.type.getASMDescriptor());
-        String descriptor = "("+parameterTypes+")"+expression.type.getASMDescriptor();
+        String descriptor = "("+parameterTypes+")"+ returnExpression.type.getASMDescriptor();
         mv.visitVarInsn(ALOAD, 0);
         mv.visitMethodInsn(INVOKEVIRTUAL, clars.className, name, descriptor, false);
         //methodVisitor.visitInsn(POP); //TODO: no assign + no void? -> pop value from stack!
