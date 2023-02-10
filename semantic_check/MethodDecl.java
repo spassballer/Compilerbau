@@ -24,8 +24,12 @@ public class MethodDecl {
         this.block = block;
     }
 
-    public int getIndexOfLocalVar(LocalOrFieldVar localVarToSearch){
-        return this.localVar.indexOf(localVarToSearch);
+
+    /**
+     * @return returns -1 if the local variable is not found
+     */
+    public int getIndexOfLocalVarByName(String nameOfLocalVarToSearch){
+        return this.localVar.indexOf(new LocalOrFieldVar(nameOfLocalVarToSearch));
     }
 
     public Type typeCheck(Map<String, Type> localVars, Clars clars) {

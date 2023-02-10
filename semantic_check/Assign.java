@@ -9,7 +9,6 @@ public class Assign extends StmtExpr implements Opcodes {
 
     String name;
     Expression expression;
-    LocalOrFieldVar localOrFieldVar;
 
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
@@ -19,13 +18,11 @@ public class Assign extends StmtExpr implements Opcodes {
             if(field.name.equals(name)){
                 fieldVar = true;
                 varType = field.type;
-                localOrFieldVar = new LocalOrFieldVar(field.name);
             }
         }
         if(localVars.containsKey(name) || fieldVar){
             if(varType==null) {
                 varType = localVars.get(name);
-                localOrFieldVar = new LocalOrFieldVar(name);
             }
             Type expressionType = expression.typeCheck(localVars, clars);
             if(varType.equals(expressionType) 
@@ -42,7 +39,8 @@ public class Assign extends StmtExpr implements Opcodes {
 
     @Override
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
-        int index = methodDecl.getIndexOfLocalVar(localOrFieldVar);
+        //TODO: assign to a method call?
+        int index = methodDecl.getIndexOfLocalVarByName(name);
 
         if (index == -1)
             mv.visitVarInsn(ALOAD, 0);

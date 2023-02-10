@@ -1,11 +1,12 @@
 package semantic_check;
 
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
 import java.util.Map;
 import java.util.Objects;
 
-public class LocalOrFieldVar extends Expression {
+public class LocalOrFieldVar extends Expression implements Opcodes {
 
 
     String name;
@@ -42,7 +43,18 @@ public class LocalOrFieldVar extends Expression {
     }
 
     @Override
-    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
-        //TODO: lade localVar/Field auf den Stack??
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
+        int index = methodDecl.getIndexOfLocalVarByName(name);
+        if (index != -1){
+            if (!type.equals(Type.STRING))
+                mv.visitVarInsn(ILOAD, index);
+            else
+                mv.visitVarInsn(ALOAD, index);
+        }
+        else {
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitFieldInsn(GETFIELD, clars.className, name, type.getASMDescriptor());
+        }
+
     }
 }
