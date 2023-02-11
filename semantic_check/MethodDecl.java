@@ -24,6 +24,14 @@ public class MethodDecl {
         this.block = block;
     }
 
+
+    /**
+     * @return returns -1 if the local variable is not found
+     */
+    public int getIndexOfLocalVarByName(String nameOfLocalVarToSearch){
+        return this.localVar.indexOf(new LocalOrFieldVar(nameOfLocalVarToSearch));
+    }
+
     public Type typeCheck(Map<String, Type> localVars, Clars clars) {
         for (MethodDecl method : clars.methods) {
             if (method.name.equals(name)) {
@@ -50,12 +58,10 @@ public class MethodDecl {
 
     public void codeGen(ClassWriter cw, Clars clars) throws Exception {
         localVar.add(new LocalOrFieldVar("this"));
-        for (Parameter parameter : parameters) {
-            localVar.add(new LocalOrFieldVar(parameter.name));
-        }
         StringBuilder parameterTypes = new StringBuilder();
         for (Parameter parameter : parameters) {
             parameterTypes.append(parameter.type.getASMDescriptor());
+            parameter.codeGen(this);
         }
         String descriptor = "("+parameterTypes+")"+returnType.getASMDescriptor();
         MethodVisitor mv = cw.visitMethod(

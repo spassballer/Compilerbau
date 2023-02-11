@@ -61,18 +61,6 @@ public class Clars {
         constructorVisitor.visitCode();
         constructorVisitor.visitVarInsn(ALOAD, 0);
         constructorVisitor.visitMethodInsn(INVOKESPECIAL, "java/lang/Object", "<init>", "()V", false);
-        for (FieldDecl fieldDecl : fields)
-            if (fieldDecl.initialValue != null) {
-                constructorVisitor.visitVarInsn(ALOAD, 0);
-                if (fieldDecl.type.equals(Type.BOOLEAN))
-                    if ((boolean) fieldDecl.initialValue)
-                        constructorVisitor.visitInsn(ICONST_1);
-                    else
-                        constructorVisitor.visitInsn(ICONST_0);
-                else
-                    constructorVisitor.visitLdcInsn(fieldDecl.initialValue);
-                constructorVisitor.visitFieldInsn(PUTFIELD, this.className, fieldDecl.name, fieldDecl.type.getASMDescriptor());
-            }
         constructorVisitor.visitInsn(RETURN);
         constructorVisitor.visitMaxs(-1, -1);
         constructorVisitor.visitEnd();
