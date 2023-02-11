@@ -14,7 +14,7 @@ public class InstVar extends Expression{
         Type exprType = expression.typeCheck(localvars, clars);
         if (exprType.equals(Type.BOOLEAN)
                 || exprType.equals(Type.CHAR)
-                || exprType.equals(Type.INTEGER)
+                || exprType.equals(Type.INT)
                 || exprType.equals(Type.VOID)
                 || exprType.equals(Type.NULL)) {
             if(exprType.equals(clars.name)){

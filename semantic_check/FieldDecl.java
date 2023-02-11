@@ -18,13 +18,13 @@ public class FieldDecl {
     Type typeCheck(Map<String,Type> localVars, Clars clars){
         if(!(type.equals(Type.BOOLEAN)
                 || type.equals(Type.CHAR)
-                || type.equals(Type.INTEGER)
+                || type.equals(Type.INT)
                 || type.equals(Type.STRING))){
-            // TODO Exception
+            throw new UnexpectedType("Field"+name+"has an invalid type: " +type);
         }
         for(FieldDecl field : clars.fields){
             if(field.name.equals(name)){
-                // TODO Exception
+                throw new DuplicateException("The Field: "+name+" does already exists");
             }
         }
         return type;

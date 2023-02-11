@@ -20,9 +20,9 @@ public class Unary extends Expression{
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
-        if(expr.typeCheck(localvars, clars).equals(Type.INTEGER)){
+        if(expr.typeCheck(localvars, clars).equals(Type.INT)){
             if(operator.contains("+")||operator.contains("-")){
-                return Type.INTEGER;
+                return Type.INT;
             }
             //TODO Exception invalid operator for integer
         }
