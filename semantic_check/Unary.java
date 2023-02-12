@@ -46,10 +46,22 @@ public class Unary extends Expression{
                 mv.visitInsn(INEG);
                 break;
             case "++":
-                mv.visitIincInsn(1, 1); //TODO var not 1 but index of the variable to increment
+                if(expr instanceof LocalOrFieldVar var){
+                    int index = methodDecl.getIndexOfLocalVarByName(var.name);
+                    if(index == -1){
+                        throw new Exception("Cant find LocalOrFieldVar with name " + var.name);
+                    }
+                    mv.visitIincInsn(index, 1);
+                }
                 break;
             case "--":
-                mv.visitIincInsn(2, -1); //TODO same as above
+                if(expr instanceof LocalOrFieldVar var){
+                    int index = methodDecl.getIndexOfLocalVarByName(var.name);
+                    if(index == -1){
+                        throw new Exception("Cant find LocalOrFieldVar with name " + var.name);
+                    }
+                    mv.visitIincInsn(index, -1);
+                }
                 break;
             case "!":
                 Label notEqual = new Label();
