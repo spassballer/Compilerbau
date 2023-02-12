@@ -35,7 +35,7 @@ public class MethodDecl {
     public Type typeCheck(Map<String, Type> localVars, Clars clars) {
         for (MethodDecl method : clars.methods) {
             if (method.name.equals(name)) {
-                // TODO Exception
+                throw new DuplicateException("The method: " + name +" already exists");
             }
         }
         if (!(returnType.equals(Type.BOOLEAN)
@@ -43,7 +43,7 @@ public class MethodDecl {
                 || returnType.equals(Type.INT)
                 || returnType.equals(Type.STRING)
                 || returnType.equals(Type.VOID))) {
-            // TODO Exception
+            throw new InvalidTypeException("The return type: " + returnType+" is invalid");
         }
         for (Parameter parameter: parameters){
             parameter.typeCheck(localVars,clars);
@@ -51,7 +51,7 @@ public class MethodDecl {
         }
         Type blockType = block.typeCheck(localVars,clars);
         if (!blockType.equals(returnType)){
-            //TODO Exception
+            throw new InvalidTypeException("The return type " +returnType +" doesnt match with type of method block " + blockType);
         }
         return returnType;
     }

@@ -22,6 +22,7 @@ public class Clars {
 
     Type typeCheck(){
         Clars clars = this;
+        Type.CLASSTYPE = name;
         for(FieldDecl field : fields){
             field.typeCheck(new HashMap<>(),clars);
         }

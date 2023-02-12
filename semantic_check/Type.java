@@ -11,6 +11,7 @@ public class Type {
     public static Type NULL = new Type("null");
     public static Type THIS = new Type("this");
     public static Type OBJECT = new Type("object");
+    public static Type CLASSTYPE;
 
     public Type(String type) {
         this.type = type;
