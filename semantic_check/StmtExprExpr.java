@@ -1,4 +1,4 @@
-package semantic_check;
+
 
 import org.objectweb.asm.MethodVisitor;
 
@@ -7,6 +7,10 @@ import java.util.Map;
 public class StmtExprExpr extends Expression{
 
     StmtExpr stmtExpr;
+
+    public StmtExprExpr(StmtExpr stmtExpr) {
+        this.stmtExpr = stmtExpr;
+    }
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {

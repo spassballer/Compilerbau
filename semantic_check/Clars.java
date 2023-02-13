@@ -1,6 +1,11 @@
-package semantic_check;
-import java.util.HashMap;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Vector;
+
+import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
@@ -9,11 +14,11 @@ import static org.objectweb.asm.Opcodes.*;
 
 public class Clars {
     Type name;
-    FieldDecl[] fields;
-    MethodDecl[] methods;
+    Vector<FieldDecl> fields;
+    Vector<MethodDecl> methods;
     String className;
 
-    public Clars(Type type, FieldDecl[] fields, MethodDecl[] methods){
+    public Clars(Type type, Vector<FieldDecl> fields, Vector<MethodDecl> methods){
         this.name = type;
         this.fields = fields;
         this.methods = methods;
@@ -32,23 +37,30 @@ public class Clars {
         return name;
     }
 
-    public void codeGen() throws Exception {
-        ClassWriter cw = new ClassWriter( ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
+    public void codeGen() {
+        try {
+            ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
 
-        cw.visit(Opcodes.V1_8,
-                Opcodes.ACC_PUBLIC,
-                className,
-                null,
-                "java/lang/Object",
-                null
-        );
+            cw.visit(Opcodes.V1_8,
+                    Opcodes.ACC_PUBLIC,
+                    className,
+                    null,
+                    "java/lang/Object",
+                    null
+            );
 
-        for (FieldDecl fieldDecl : fields) {
-            fieldDecl.codeGen(cw);
-        }
-        visitStandardConstructor(cw);
-        for (MethodDecl methodDecls : methods) {
-            methodDecls.codeGen(cw, this);
+            for (FieldDecl fieldDecl : fields) {
+                fieldDecl.codeGen(cw);
+            }
+            visitStandardConstructor(cw);
+            for (MethodDecl methodDecls : methods) {
+                methodDecls.codeGen(cw, this);
+            }
+
+            cw.visitEnd();
+            writeClassfile(cw);
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
     public void visitStandardConstructor(ClassWriter cw) throws Exception {
@@ -65,5 +77,14 @@ public class Clars {
         constructorVisitor.visitInsn(RETURN);
         constructorVisitor.visitMaxs(-1, -1);
         constructorVisitor.visitEnd();
+    }
+
+    static void writeClassfile(ClassWriter cw) throws IOException {
+        byte[] bytes = cw.toByteArray();
+        String className = new ClassReader(bytes).getClassName();
+        File outputFile = new File("./", className + ".class");
+        FileOutputStream output = new FileOutputStream(outputFile);
+        output.write(bytes);
+        output.close();
     }
 }

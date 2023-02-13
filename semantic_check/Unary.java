@@ -1,4 +1,4 @@
-package semantic_check;
+
 
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
@@ -46,7 +46,8 @@ public class Unary extends Expression{
                 mv.visitInsn(INEG);
                 break;
             case "++":
-                if(expr instanceof LocalOrFieldVar var){
+                if(expr instanceof LocalOrFieldVar){
+                    LocalOrFieldVar var = (LocalOrFieldVar) expr;
                     int index = methodDecl.getIndexOfLocalVarByName(var.name);
                     if(index == -1){
                         throw new Exception("Cant find LocalOrFieldVar with name " + var.name);
@@ -55,7 +56,8 @@ public class Unary extends Expression{
                 }
                 break;
             case "--":
-                if(expr instanceof LocalOrFieldVar var){
+                if(expr instanceof LocalOrFieldVar){
+                    LocalOrFieldVar var = (LocalOrFieldVar) expr;
                     int index = methodDecl.getIndexOfLocalVarByName(var.name);
                     if(index == -1){
                         throw new Exception("Cant find LocalOrFieldVar with name " + var.name);

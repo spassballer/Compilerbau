@@ -1,4 +1,4 @@
-package semantic_check;
+
 import java.util.Objects;
 
 public class Type {

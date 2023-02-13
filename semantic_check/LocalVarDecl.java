@@ -1,4 +1,3 @@
-package semantic_check;
 
 import org.objectweb.asm.MethodVisitor;
 
@@ -8,6 +7,11 @@ public class LocalVarDecl extends Statement {
 
     Type varType;
     String varName;
+
+    public LocalVarDecl(Type varType, String varName) {
+        this.varType = varType;
+        this.varName = varName;
+    }
 
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {

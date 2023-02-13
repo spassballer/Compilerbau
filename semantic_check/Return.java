@@ -1,4 +1,4 @@
-package semantic_check;
+
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
@@ -8,6 +8,10 @@ import java.util.Map;
 public class Return extends Statement implements Opcodes {
 
     Expression expression;
+
+    public Return(Expression expression) {
+        this.expression = expression;
+    }
 
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {

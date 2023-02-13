@@ -1,4 +1,4 @@
-package semantic_check;
+
 
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
@@ -6,18 +6,19 @@ import org.objectweb.asm.MethodVisitor;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Vector;
 
 import static org.objectweb.asm.Opcodes.*;
 
 public class MethodDecl {
     public String name;
     public Type returnType;
-    public Parameter[] parameters;
+    public Vector<Parameter> parameters;
     public Block block;
-    ArrayList<LocalOrFieldVar> localVar = new ArrayList<LocalOrFieldVar>();
+    Vector<LocalOrFieldVar> localVar = new Vector<LocalOrFieldVar>();
     public Label endLabel;
 
-    public MethodDecl(String name, Type returnType, Parameter[] parameters, Block block) {
+    public MethodDecl(String name, Type returnType, Vector<Parameter> parameters, Block block) {
         this.name = name;
         this.returnType = returnType;
         this.parameters = parameters;

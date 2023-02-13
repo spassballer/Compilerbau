@@ -1,14 +1,15 @@
-package semantic_check;
+
 
 import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
+import java.util.Vector;
 
 public class Block extends Statement {
 
-    Statement[] stm;
+    Vector<Statement> stm;
 
-    public Block(Statement[] stm) {
+    public Block(Vector<Statement> stm) {
         this.stm = stm;
     }
 

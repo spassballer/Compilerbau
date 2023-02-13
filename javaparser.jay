@@ -1,0 +1,180 @@
+%{
+import java.util.*;
+import java.util.Vector;
+
+class javaparser {
+%}
+
+%token CLASS
+%token VARNAME
+%token CBRACKETOPEN
+%token CBRACKETCLOSED
+%token BRACKETOPEN
+%token BRACKETCLOSED
+%token SEMICOLON
+%token BOOLEAN
+%token CHAR
+%token INT
+%token STRING
+%token COMMA
+%token IF
+%token WHILE
+%token ELSE
+%token RETURN
+%token THIS
+%token SUPER
+%token BINARYOPERATOR
+%token PLUSMINUSOPERATOR
+%token NOT
+%token DOT
+%token NULL
+%token EQUAL
+%token NEW
+
+%type <Clars> class emptyClass
+%type <Vector> fields statements methods expressions parameters
+%type <FieldDecl> field
+%type <Type> type
+%type <MethodDecl> method
+%type <Parameter> parameter
+%type <Block> block
+%type <Statement> statement
+%type <Expression> expression
+%type <If> ifthenstatement ifthenelsestatement 
+%type <While> whilestatement
+%type <Return> returnstatement
+%type <StmtExprExpr> stmtExprExpr
+%type <StmtExprStmt> stmtExprStmt
+%type <StmtExpr> stmtExpr
+%type <LocalOrFieldVar> localOrFieldVar
+%type <LocalVarDecl> localVarDecl
+%type <This> this
+%type <Super> super
+%type <JInteger> integer
+%type <Binary> binary
+%type <Unary> unary
+%type <Bool> bool
+%type <InstVar> instVar
+%type <JString> string
+%type <Jnull> jnull
+%type <Char> char
+%type <Assign> assign
+%type <New> new
+%type <MethodCall> methodCall emptyMethodCall
+%type <String> VARNAME INT NOT BINARYOPERATOR PLUSMINUSOPERATOR BOOLEAN STRING CHAR 
+
+%start class
+
+%%
+
+class : CLASS VARNAME CBRACKETOPEN fields methods CBRACKETCLOSED {Clars finalClass = new Clars(new Type($2), $4, $5); finalClass.typeCheck(); finalClass.codeGen(); $$ = finalClass; }
+      | CLASS VARNAME CBRACKETOPEN methods CBRACKETCLOSED { Clars finalClass = new Clars(new Type($2), new Vector(), $4); finalClass.typeCheck(); finalClass.codeGen(); $$ = finalClass; }
+      | CLASS VARNAME CBRACKETOPEN fields CBRACKETCLOSED { Clars finalClass = new Clars(new Type($2), $4, new Vector()); finalClass.typeCheck(); finalClass.codeGen(); $$ = finalClass; }
+      | CLASS VARNAME CBRACKETOPEN CBRACKETCLOSED { Clars finalClass = new Clars(new Type($2), new Vector(), new Vector()); finalClass.typeCheck(); finalClass.codeGen(); $$ = finalClass; }
+
+fields : field { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
+       | fields field { Vector fs = $1 ; fs.addElement($2); $$ = fs; }
+
+field : type VARNAME SEMICOLON { $$ = new FieldDecl($2, $1); }
+
+type : VARNAME { $$ = new Type($1); }
+
+methods : method { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
+        | methods method { Vector fs = $1 ; fs.addElement($2); $$ = fs; }
+
+method : type VARNAME BRACKETOPEN parameters BRACKETCLOSED block { $$ = new MethodDecl($2, $1, $4, $6); }
+       | type VARNAME BRACKETOPEN BRACKETCLOSED block { $$ = new MethodDecl($2, $1, new Vector(), $5); }
+
+parameters : parameter { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
+           | parameters COMMA parameter { Vector fs = $1 ; fs.addElement($3); $$ = fs; }
+
+parameter : type VARNAME { $$ = new Parameter($2, $1); }
+
+block : CBRACKETOPEN CBRACKETCLOSED { $$ = new Block(new Vector()); }
+      | CBRACKETOPEN statements CBRACKETCLOSED { $$ = new Block($2); }      
+
+statements  : statement { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
+            | statements statement { Vector fs = $1 ; fs.addElement($2); $$ = fs; }
+
+
+statement : ifthenstatement {}
+          | ifthenelsestatement {}
+          | whilestatement {}
+          | block {}
+          | returnstatement SEMICOLON {}
+          | stmtExprStmt SEMICOLON {}
+          | localVarDecl SEMICOLON {}
+
+ifthenstatement : IF BRACKETOPEN expression BRACKETCLOSED statement { $$ = new If($3, $5, null); }
+
+ifthenelsestatement : IF BRACKETOPEN expression BRACKETCLOSED statement ELSE statement { $$ = new If($3, $5, $7); }
+
+whilestatement : WHILE BRACKETOPEN expression BRACKETCLOSED statement { $$ = new While($3, $5); }
+
+returnstatement : RETURN expression { $$ = new Return($2); }
+
+stmtExprExpr : stmtExpr { $$ = new StmtExprExpr($1); }
+
+stmtExprStmt : stmtExpr { $$ = new StmtExprStmt($1); }
+
+localVarDecl : type VARNAME { $$ = new LocalVarDecl($1, $2); }
+
+expression : this {}
+           | super {}
+           | localOrFieldVar {}
+           | integer {}
+           | binary {}
+           | unary {}
+           | bool {}
+           | instVar {}
+           | string {}
+           | jnull {}
+           | char {}
+           | stmtExprExpr {}
+           | BRACKETOPEN expression BRACKETCLOSED {$$ = $2;}
+
+stmtExpr : assign {}
+         | new {}
+         | methodCall {}
+         | emptyMethodCall {}
+
+this : THIS { $$ = new This(); }
+
+super : SUPER { $$ = new Super(); }
+
+localOrFieldVar : VARNAME { $$ = new LocalOrFieldVar($1); }
+
+integer : INT { $$ = new JInteger($1); }
+
+binary : expression BINARYOPERATOR expression { $$ = new Binary($2, $1, $3); }
+       | expression PLUSMINUSOPERATOR expression { $$ = new Binary($2, $1, $3); }
+
+unary : NOT expression { $$ = new Unary($1, $2); }
+      | PLUSMINUSOPERATOR expression { $$ = new Unary($1, $2); }
+
+bool : BOOLEAN { $$ = new Bool($1); }
+
+instVar : expression DOT VARNAME { $$ = new InstVar($1, $3); }
+
+string : STRING { $$ = new JString($1); }
+
+jnull : NULL { $$ = new JNull(); }
+
+char : CHAR { $$ = new Char($1); }
+
+assign : VARNAME EQUAL expression { $$ = new Assign($1, $3); }
+
+new : NEW type BRACKETOPEN expressions BRACKETCLOSED { $$ = new New($2, $4); }
+    | NEW type BRACKETOPEN BRACKETCLOSED { $$ = new New($2, new Vector()); }
+
+methodCall : expression DOT VARNAME BRACKETOPEN expressions BRACKETCLOSED { $$ = new MethodCall($1, $3, $5); }
+           | VARNAME BRACKETOPEN expressions BRACKETCLOSED { $$ = new MethodCall(new This(), $1, $3); }
+
+emptyMethodCall : expression DOT VARNAME BRACKETOPEN BRACKETCLOSED { $$ = new MethodCall($1, $3, new Vector()); }
+                | VARNAME BRACKETOPEN BRACKETCLOSED { $$ = new MethodCall(new This(), $1, new Vector()); }
+
+expressions : expression { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
+            | expressions COMMA expression { Vector fs = $1 ; fs.addElement($3); $$ = fs; }
+
+%%
+}

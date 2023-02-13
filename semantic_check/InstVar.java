@@ -1,13 +1,20 @@
-package semantic_check;
+
 
 import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
 
-public class InstVar extends Expression{
+import static org.objectweb.asm.Opcodes.GETFIELD;
+
+public class InstVar extends Expression {
 
     Expression expression;
     String name;
+
+    public InstVar(Expression expression, String name) {
+        this.expression = expression;
+        this.name = name;
+    }
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
@@ -17,9 +24,9 @@ public class InstVar extends Expression{
                 || exprType.equals(Type.INT)
                 || exprType.equals(Type.VOID)
                 || exprType.equals(Type.NULL)) {
-            if(exprType.equals(clars.name)){
-                for(FieldDecl field : clars.fields){
-                    if(field.name.equals(name)){
+            if (exprType.equals(clars.name)) {
+                for (FieldDecl field : clars.fields) {
+                    if (field.name.equals(name)) {
                         return field.type;
                     }
                 }
@@ -30,11 +37,10 @@ public class InstVar extends Expression{
         //TODO Exception: Expression must be a valid Class type
         return null;
     }
+
     @Override
-    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
-        //TODO: was ist das überhaupt???
-        // "Instanz variable"
-        // also z.B.:
-        // Auto.reifen
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
+        expression.codeGen(clars, methodDecl, mv);
+        mv.visitFieldInsn(GETFIELD, clars.className, name, type.getASMDescriptor());
     }
 }

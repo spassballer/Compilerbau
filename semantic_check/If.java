@@ -1,4 +1,4 @@
-package semantic_check;
+
 
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
@@ -10,6 +10,12 @@ public class If extends Statement {
     Expression cond;
     Statement ifStmt;
     Statement elseStmt;
+
+    public If(Expression cond, Statement ifStmt, Statement elseStmt) {
+        this.cond = cond;
+        this.ifStmt = ifStmt;
+        this.elseStmt = elseStmt;
+    }
 
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {

@@ -1,15 +1,20 @@
-package semantic_check;
 
 import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
+import java.util.Vector;
 
 import static org.objectweb.asm.Opcodes.*;
 
 public class New extends StmtExpr {
 
     Type type;
-    Expression[] expressions;
+    Vector<Expression> expressions;
+
+    public New(Type type, Vector<Expression> expressions) {
+        this.type = type;
+        this.expressions = expressions;
+    }
 
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {

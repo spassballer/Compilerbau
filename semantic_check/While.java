@@ -1,12 +1,17 @@
-package semantic_check;
+
 import java.util.Map;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 public class While extends Statement{
+    Expression condition;
     Statement stmt;
-    Expression exp;
+
+    public While(Expression condition, Statement stmt) {
+        this.condition = condition;
+        this.stmt = stmt;
+    }
 
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
@@ -22,7 +27,7 @@ public class While extends Statement{
 
         mv.visitLabel(start);
 
-        exp.codeGen(clars, methodDecl, mv);
+        condition.codeGen(clars, methodDecl, mv);
         mv.visitJumpInsn(Opcodes.IFEQ, end);
 
         stmt.codeGen(clars, methodDecl, mv);

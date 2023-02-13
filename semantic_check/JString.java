@@ -1,4 +1,4 @@
-package semantic_check;
+
 
 import org.objectweb.asm.MethodVisitor;
 
@@ -6,6 +6,10 @@ import java.util.Map;
 
 public class JString extends Expression{
     String str;
+
+    public JString(String str) {
+        this.str = str;
+    }
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
