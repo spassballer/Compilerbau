@@ -7,7 +7,7 @@ javalexer.java: javalexer
 	java -cp JLex2.jar JLex2.Main javalexer
 
 javaparser.java: javaparser.jay skeleton.jaooy
-	./jaooy -v -t  javaparser.jay < skeleton.jaooy > javaparser.java
+	jaooy -v -t  javaparser.jay < skeleton.jaooy > javaparser.java
 
 sources.txt:
 	find ./semantic_check/ -name "*.java" > sources.txt
