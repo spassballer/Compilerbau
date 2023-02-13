@@ -34,10 +34,12 @@ public class MethodDecl {
     }
 
     public Type typeCheck(Map<String, Type> localVars, Clars clars) {
+        ArrayList<MethodDecl> methodList = new ArrayList();
         for (MethodDecl method : clars.methods) {
-            if (method.name.equals(name)) {
+            if (methodList.contains(method)) {
                 throw new DuplicateException("The method: " + name +" already exists");
             }
+            methodList.add((method));
         }
         if (!(returnType.equals(Type.BOOLEAN)
                 || returnType.equals(Type.CHAR)
