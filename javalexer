@@ -75,22 +75,22 @@ while {return new WHILE(yytext());}
 "." {return new DOT(yytext());}
 
 "=" {return new EQUAL(yytext());}
-"==" {return new EQUALS(yytext());}
-"!=" {return new NOTEQUAL(yytext());}
-"&&" {return new AND(yytext());}
-"||" {return new OR(yytext());}
+"==" {return new BINARYOPERATOR(yytext());}
+"!=" {return new BINARYOPERATOR(yytext());}
+"&&" {return new BINARYOPERATOR(yytext());}
+"||" {return new BINARYOPERATOR(yytext());}
 
 "!" {return new NOT(yytext());}
-"+" {return new PLUS(yytext());}
-"-" {return new MINUS(yytext());}
-"*" {return new MULTIPLY(yytext());}
-"/" {return new DIVIDE(yytext());}
-"%" {return new MODULO(yytext());}
+"+" {return new PLUSMINUSOPERATOR(yytext());}
+"-" {return new PLUSMINUSOPERATOR(yytext());}
+"*" {return new BINARYOPERATOR(yytext());}
+"/" {return new BINARYOPERATOR(yytext());}
+"%" {return new BINARYOPERATOR(yytext());}
 
-">" {return new GREATER(yytext());}
-">=" {return new GREATEREQUAL(yytext());}
-"<" {return new LESS(yytext());}
-"<=" {return new LESSEQUAL(yytext());}
+">" {return new BINARYOPERATOR(yytext());}
+">=" {return new BINARYOPERATOR(yytext());}
+"<" {return new BINARYOPERATOR(yytext());}
+"<=" {return new BINARYOPERATOR(yytext());}
 
 "++" {return new INCREMENT(yytext());}
 "--" {return new DECREMENT(yytext());}
