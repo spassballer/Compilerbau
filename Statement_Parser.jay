@@ -66,9 +66,9 @@ class Statement_Parser {
 
 %%
 
-class : CLASS VARNAME CBRACKETOPEN fields methods CBRACKETCLOSED {Clars finalClass = new Clars(new Type($2), $4, $5); finalClass.typeCheck(); finalClass.codeGen(); $$ = finalClass }
-      | CLASS VARNAME CBRACKETOPEN methods CBRACKETCLOSED { Clars finalClass = new Clars(new Type($2), new Vector(), $4); finalClass.typeCheck(); finalClass.codeGen(); $$ = finalClass }
-      | CLASS VARNAME CBRACKETOPEN fields CBRACKETCLOSED { Clars finalClass = new Clars(new Type($2), $4, new Vector()); finalClass.typeCheck(); finalClass.codeGen(); $$ = finalClass }
+class : CLASS VARNAME CBRACKETOPEN fields methods CBRACKETCLOSED {Clars finalClass = new Clars(new Type($2), $4, $5); finalClass.typeCheck(); finalClass.codeGen(); $$ = finalClass; }
+      | CLASS VARNAME CBRACKETOPEN methods CBRACKETCLOSED { Clars finalClass = new Clars(new Type($2), new Vector(), $4); finalClass.typeCheck(); finalClass.codeGen(); $$ = finalClass; }
+      | CLASS VARNAME CBRACKETOPEN fields CBRACKETCLOSED { Clars finalClass = new Clars(new Type($2), $4, new Vector()); finalClass.typeCheck(); finalClass.codeGen(); $$ = finalClass; }
 
 emptyClass : CLASS VARNAME CBRACKETOPEN CBRACKETCLOSED { $$ = new Clars(new Type($2), new Vector(), new Vector()); }
 
