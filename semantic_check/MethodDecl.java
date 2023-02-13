@@ -16,7 +16,7 @@ public class MethodDecl {
     public Vector<Parameter> parameters;
     public Block block;
     Vector<LocalOrFieldVar> localVar = new Vector<LocalOrFieldVar>();
-    public Label endLabel;
+    public Label endLabel = new Label();
 
     public MethodDecl(String name, Type returnType, Vector<Parameter> parameters, Block block) {
         this.name = name;

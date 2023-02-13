@@ -40,4 +40,8 @@ public class Type {
         throw new Exception("Unknown type: " + this.type);
     }
 
+    @Override
+    public String toString(){
+        return type;
+    }
 }
