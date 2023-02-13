@@ -3,7 +3,7 @@ import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
 
-public class LocalVarDecl extends Statement{
+public class LocalVarDecl extends Statement {
 
     Type varType;
     String varName;
@@ -15,17 +15,18 @@ public class LocalVarDecl extends Statement{
 
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
-        if(localVars.containsKey(varName)){
-            //TODO Exception Variable already exists
+        if (localVars.containsKey(varName)) {
+            throw new DuplicateException("Variable " + varName + " already exists.");
         }
         if (!(varType.equals(Type.BOOLEAN)
                 || varType.equals(Type.CHAR)
                 || varType.equals(Type.INT)
-                || varType.equals(Type.STRING))) {
-            //TODO Exception invalid Type
+                || varType.equals(Type.STRING)
+                || varType.equals(Type.CLASSTYPE))) {
+            throw new InvalidTypeException("Invalid type: "+varType+" at variable declaration: " + varName);
         }
         localVars.put(varName, varType);
-        return varType;
+        return Type.VOID;
     }
 
     @Override

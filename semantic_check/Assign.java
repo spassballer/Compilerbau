@@ -26,7 +26,7 @@ public class Assign extends StmtExpr implements Opcodes {
             }
         }
         if(localVars.containsKey(name) || fieldVar){
-            if(varType==null) {
+            if(varType==null) { // -> localvar
                 varType = localVars.get(name);
             }
             Type expressionType = expression.typeCheck(localVars, clars);
@@ -36,10 +36,9 @@ public class Assign extends StmtExpr implements Opcodes {
                     && expressionType.equals(Type.NULL))){
                 return varType;
             }
-            //TODO Exception type does not match
+            throw new InvalidTypeException("Type " + expressionType + " can't be assigned to " + varType +" type");
         }
-        //TODO Exception does not exist
-        return null;
+        throw new NotDeclaredException("Variable " + name + " is not declared");
     }
 
     @Override

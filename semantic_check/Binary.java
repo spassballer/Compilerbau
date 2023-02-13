@@ -18,11 +18,11 @@ public class Binary extends Expression {
     }
 
     @Override
-    Type typeCheck(Map<String, Type> localvars, Clars clars) {
-        if (exp1.typeCheck(localvars, clars).equals(exp2.typeCheck(localvars, clars))) {
-            if (!(exp1.typeCheck(localvars, clars).equals(Type.INT) ||
-                    exp1.typeCheck(localvars, clars).equals(Type.STRING))) {
-                return null;
+    Type typeCheck(Map<String, Type> localvars,Clars clars) {
+        if (exp1.typeCheck(localvars,clars).equals(exp2.typeCheck(localvars,clars))){
+            if (!(exp1.typeCheck(localvars,clars).equals(Type.INT) ||
+                    exp1.typeCheck(localvars,clars).equals(Type.STRING))){
+                return null; //TODO
             }
             if (operator.equals("+")) {
                 return exp1.typeCheck(localvars, clars);

@@ -22,17 +22,17 @@ public class New extends StmtExpr {
                 || type.equals(Type.CHAR)
                 || type.equals(Type.INT)
                 || type.equals(Type.VOID)
-                || type.equals(Type.NULL)) {
-            if(type.equals(clars.name)){
-                if(expressions.isEmpty()){
+                || type.equals(Type.NULL)
+                || type.equals(Type.CLASSTYPE)) {
+            if (type.equals(clars.name)) {
+                if (expressions.length == 0) {
                     return type;
                 }
-                //TODO Exception No parameters allowed in empty Constructor
+                throw new ParameterException("Parameters must be empty.");
             }
-            //TODO Exception not expected Classtype
+            throw new InvalidTypeException("Type " + type + "does not match classtype " + clars.name);
         }
-        //TODO Exception invalid type
-        return null;
+        throw new InvalidTypeException("Invalid class Type " +  type);
     }
 
     @Override
@@ -49,12 +49,12 @@ public class New extends StmtExpr {
         mv.visitInsn(DUP);
 
         StringBuilder sb = new StringBuilder();
-        for(Expression exp: expressions){
+        for (Expression exp : expressions) {
             exp.codeGen(clars, methodDecl, mv);
             sb.append(exp.type.getASMDescriptor());
         }
 
-        mv.visitMethodInsn(INVOKESPECIAL, newType, "<init>", "("+sb+")V", false);
+        mv.visitMethodInsn(INVOKESPECIAL, newType, "<init>", "(" + sb + ")V", false);
     }
 
 }
