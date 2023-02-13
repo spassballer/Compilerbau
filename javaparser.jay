@@ -1,7 +1,8 @@
 %{
 import java.util.*;
+import java.util.Vector;
 
-class Statement_Parser {
+class javaparser {
 %}
 
 %token CLASS
