@@ -58,16 +58,13 @@ class Statement_Parser {
 %type <MethodCall> methodCall emptyMethodCall
 %type <String> VARNAME INT NOT BINARYOPERATOR PLUSMINUSOPERATOR BOOLEAN STRING CHAR EQUALS
 
-%start programm
+%start class
 
 %%
 
-programm : class { Program finalProgram = new Program($1); finalProgram.typeCheck(); BytecodeGenerator.codeGen(finalProgram); $$=finalProgram; }
-         | emptyClass { Program finalProgram = new Program($1); finalProgram.typeCheck(); BytecodeGenerator.codeGen(finalProgram); $$=finalProgram; }
-
-class : CLASS VARNAME CBRACKETOPEN fields methods CBRACKETCLOSED { $$ = new Clars(new Type($2), $4, $5); System.out.println(new Class(new Type($2), $4, $5)); }
-      | CLASS VARNAME CBRACKETOPEN methods CBRACKETCLOSED { $$ = new Clars(new Type($2), new Vector(), $4); }
-      | CLASS VARNAME CBRACKETOPEN fields CBRACKETCLOSED { $$ = new Clars(new Type($2), $4, new Vector()); }
+class : CLASS VARNAME CBRACKETOPEN fields methods CBRACKETCLOSED {Clars finalClass = new Clars(new Type($2), $4, $5); finalClass.typeCheck(); finalClass.codeGen(); $$ = finalClass }
+      | CLASS VARNAME CBRACKETOPEN methods CBRACKETCLOSED { Clars finalClass = new Clars(new Type($2), new Vector(), $4); finalClass.typeCheck(); finalClass.codeGen(); $$ = finalClass }
+      | CLASS VARNAME CBRACKETOPEN fields CBRACKETCLOSED { Clars finalClass = new Clars(new Type($2), $4, new Vector()); finalClass.typeCheck(); finalClass.codeGen(); $$ = finalClass }
 
 emptyClass : CLASS VARNAME CBRACKETOPEN CBRACKETCLOSED { $$ = new Clars(new Type($2), new Vector(), new Vector()); }
 
