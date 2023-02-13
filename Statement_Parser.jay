@@ -152,8 +152,6 @@ integer : INT { $$ = new JInteger($1); }
 binary : expression BINARYOPERATOR expression { $$ = new Binary($2, $1, $3); }
        | expression PLUSMINUSOPERATOR expression { $$ = new Binary($2, $1, $3); }
 
-////////////// lexer rechenoperationen zusammen fassen (+,- PLUSMINUSOPERATOR, rest BINARYOPERATOR)
-
 unary : NOT expression { $$ = new Unary($1, $2); }
       | PLUSMINUSOPERATOR expression { $$ = new Unary($1, $2); }
 
