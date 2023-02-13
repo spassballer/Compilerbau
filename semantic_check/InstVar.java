@@ -4,6 +4,8 @@ import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
 
+import static org.objectweb.asm.Opcodes.GETFIELD;
+
 public class InstVar extends Expression{
 
     Expression expression;
@@ -36,7 +38,8 @@ public class InstVar extends Expression{
         return null;
     }
     @Override
-    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
-        //TODO: was ist das überhaupt???
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
+        expression.codeGen(clars, methodDecl, mv);
+        mv.visitFieldInsn(GETFIELD, clars.className, name, type.getASMDescriptor());
     }
 }

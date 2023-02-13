@@ -1,7 +1,11 @@
 package semantic_check;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Vector;
 
+import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
@@ -51,6 +55,9 @@ public class Clars {
         for (MethodDecl methodDecls : methods) {
             methodDecls.codeGen(cw, this);
         }
+
+        cw.visitEnd();
+        writeClassfile(cw);
     }
     public void visitStandardConstructor(ClassWriter cw) throws Exception {
         MethodVisitor constructorVisitor = cw.visitMethod(
@@ -66,5 +73,14 @@ public class Clars {
         constructorVisitor.visitInsn(RETURN);
         constructorVisitor.visitMaxs(-1, -1);
         constructorVisitor.visitEnd();
+    }
+
+    static void writeClassfile(ClassWriter cw) throws IOException {
+        byte[] bytes = cw.toByteArray();
+        String className = new ClassReader(bytes).getClassName();
+        File outputFile = new File("./", className + ".class");
+        FileOutputStream output = new FileOutputStream(outputFile);
+        output.write(bytes);
+        output.close();
     }
 }
