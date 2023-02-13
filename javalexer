@@ -1,7 +1,7 @@
 %%
-%jayscanner browserscanner
-%jayparser browserparser
-%class browserlexer
+%jayscanner javascanner
+%jayparser javaparser
+%class javalexer
 %eofval{
 return new EOF();
 %eofval}
