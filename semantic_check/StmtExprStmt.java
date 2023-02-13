@@ -15,7 +15,8 @@ public class StmtExprStmt extends Statement {
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
         stmtExpr.typeCheck(localVars, clars);
-        return Type.VOID;
+        type = Type.VOID;
+        return type;
     }
 
     @Override

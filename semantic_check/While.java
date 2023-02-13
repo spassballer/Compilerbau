@@ -16,7 +16,8 @@ public class While extends Statement{
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
         if(condition.typeCheck(localVars, clars).equals(Type.BOOLEAN)){
-            return stmt.typeCheck(localVars, clars);
+            type = stmt.typeCheck(localVars, clars);
+            return type;
         }
         throw new InvalidTypeException("Condition " + condition + " is not a boolean");
     }

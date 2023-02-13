@@ -15,7 +15,8 @@ public class Return extends Statement implements Opcodes {
 
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
-        return expression.typeCheck(localVars, clars);
+        type = expression.typeCheck(localVars, clars);
+        return type;
     }
 
     @Override

@@ -26,7 +26,8 @@ public class LocalVarDecl extends Statement {
             throw new InvalidTypeException("Invalid type: "+varType+" at variable declaration: " + varName);
         }
         localVars.put(varName, varType);
-        return Type.VOID;
+        type = Type.VOID;
+        return type;
     }
 
     @Override

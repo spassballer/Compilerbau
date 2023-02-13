@@ -22,11 +22,13 @@ public class If extends Statement {
         if (cond.typeCheck(localVars, clars).equals(new Type("boolean"))) {
             Type ifType = ifStmt.typeCheck(localVars,clars);
             if(elseStmt == null){
-                return ifType;
+                type = ifType;
+                return type;
             }
             Type elseType = elseStmt.typeCheck(localVars, clars);
             if (ifType.equals(elseType)) {
-                return ifType;
+                type = ifType;
+                return type;
             }
             throw new InvalidTypeException("If type " + ifType + " doesn't match else Type " + elseType);
         }
