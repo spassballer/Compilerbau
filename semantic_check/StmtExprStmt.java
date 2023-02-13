@@ -1,6 +1,5 @@
 package semantic_check;
 
-import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
