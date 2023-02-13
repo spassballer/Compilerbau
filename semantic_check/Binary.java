@@ -18,22 +18,22 @@ public class Binary extends Expression {
     }
 
     @Override
-    Type typeCheck(Map<String, Type> localvars,Clars clars) {
-        if (exp1.typeCheck(localvars,clars).equals(exp2.typeCheck(localvars,clars))){
-            if (!(exp1.typeCheck(localvars,clars).equals(Type.INT) ||
-                    exp1.typeCheck(localvars,clars).equals(Type.STRING))){
+    Type typeCheck(Map<String, Type> localvars, Clars clars) {
+        if (exp1.typeCheck(localvars, clars).equals(exp2.typeCheck(localvars, clars))) {
+            if (!(exp1.typeCheck(localvars, clars).equals(Type.INT) ||
+                    exp1.typeCheck(localvars, clars).equals(Type.STRING))) {
                 return null;
             }
-            if (operator.equals("+")){
-                return exp1.typeCheck(localvars,clars);
+            if (operator.equals("+")) {
+                return exp1.typeCheck(localvars, clars);
             }
-            if ("-%*".contains(operator)){
-                if (exp1.typeCheck(localvars,clars).equals(Type.INT)){
+            if ("-%*".contains(operator)) {
+                if (exp1.typeCheck(localvars, clars).equals(Type.INT)) {
                     return Type.INT;
                 }
             }
-            if (operator.equals("&&") || operator.equals("||")){
-                if (exp1.typeCheck(localvars,clars).equals(Type.BOOLEAN)){
+            if (operator.equals("&&") || operator.equals("||")) {
+                if (exp1.typeCheck(localvars, clars).equals(Type.BOOLEAN)) {
                     return Type.BOOLEAN;
                 }
             }
@@ -46,7 +46,7 @@ public class Binary extends Expression {
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
         int ifOpcode = 0;
 
-        if(operator.equals("&&")){
+        if (operator.equals("&&")) {
             Label notEqualTrue = new Label();
             Label finish = new Label();
 
@@ -69,7 +69,7 @@ public class Binary extends Expression {
 
             //Visit label finish
             mv.visitLabel(finish);
-        } else if(operator.equals("||")){
+        } else if (operator.equals("||")) {
             Label equalTrue = new Label();
             Label notEqualTrue = new Label();
             Label finish = new Label();
@@ -96,20 +96,25 @@ public class Binary extends Expression {
             exp1.codeGen(clars, methodDecl, mv);
             exp2.codeGen(clars, methodDecl, mv);
             switch (operator) {
-                case "+" -> {
+                case "+":
                     if (exp1 instanceof JString && exp2 instanceof JString) {
                         //Append strings
                         mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/String", "concat", "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;", false);
                     } else {
                         mv.visitInsn(Opcodes.IADD);
                     }
-                }
-                case "-" -> mv.visitInsn(Opcodes.ISUB);
-                case "/" -> mv.visitInsn(Opcodes.IDIV);
-                case "*" -> mv.visitInsn(Opcodes.IMUL);
+                    break;
+                case "-":
+                    mv.visitInsn(Opcodes.ISUB);
+                    break;
+                case "/":
+                    mv.visitInsn(Opcodes.IDIV);
+                    break;
+                case "*":
+                    mv.visitInsn(Opcodes.IMUL);
+                    break;
             }
-        }
-        else {
+        } else {
             Label notEqual = new Label();
             Label finish = new Label();
 
@@ -117,12 +122,24 @@ public class Binary extends Expression {
             exp2.codeGen(clars, methodDecl, mv);
 
             switch (operator) {
-                case "==" -> mv.visitJumpInsn(Opcodes.IF_ICMPNE, notEqual);
-                case "!=" -> mv.visitJumpInsn(Opcodes.IF_ICMPEQ, notEqual);
-                case ">" -> mv.visitJumpInsn(Opcodes.IF_ICMPLE, notEqual);
-                case ">=" -> mv.visitJumpInsn(Opcodes.IF_ICMPLT, notEqual);
-                case "<" -> mv.visitJumpInsn(Opcodes.IF_ICMPGE, notEqual);
-                case "<=" -> mv.visitJumpInsn(Opcodes.IF_ICMPGT, notEqual);
+                case "==":
+                    mv.visitJumpInsn(Opcodes.IF_ICMPNE, notEqual);
+                    break;
+                case "!=":
+                    mv.visitJumpInsn(Opcodes.IF_ICMPEQ, notEqual);
+                    break;
+                case ">":
+                    mv.visitJumpInsn(Opcodes.IF_ICMPLE, notEqual);
+                    break;
+                case ">=":
+                    mv.visitJumpInsn(Opcodes.IF_ICMPLT, notEqual);
+                    break;
+                case "<":
+                    mv.visitJumpInsn(Opcodes.IF_ICMPGE, notEqual);
+                    break;
+                case "<=":
+                    mv.visitJumpInsn(Opcodes.IF_ICMPGT, notEqual);
+                    break;
             }
 
             mv.visitInsn(Opcodes.ICONST_1);
