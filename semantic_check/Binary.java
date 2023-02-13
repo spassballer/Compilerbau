@@ -11,6 +11,12 @@ public class Binary extends Expression {
     Expression exp1;
     Expression exp2;
 
+    public Binary(String operator, Expression exp1, Expression exp2) {
+        this.operator = operator;
+        this.exp1 = exp1;
+        this.exp2 = exp2;
+    }
+
     @Override
     Type typeCheck(Map<String, Type> localvars,Clars clars) {
         if (exp1.typeCheck(localvars,clars).equals(exp2.typeCheck(localvars,clars))){
@@ -36,7 +42,8 @@ public class Binary extends Expression {
         return null; //TODO throw an error
     }
 
-    void codeGen(MethodVisitor mv) {
+    @Override
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
         int ifOpcode = 0;
 
         if(operator.equals("&&")){
@@ -44,10 +51,10 @@ public class Binary extends Expression {
             Label finish = new Label();
 
             //Load exp1, if false: jump to Label notEqualTrue
-            exp1.codeGen(mv);
+            exp1.codeGen(clars, methodDecl, mv);
             mv.visitJumpInsn(Opcodes.IFEQ, notEqualTrue);
             //Do the same for exp2
-            exp2.codeGen(mv);
+            exp2.codeGen(clars, methodDecl, mv);
             mv.visitJumpInsn(Opcodes.IFEQ, notEqualTrue);
 
             //Load true, then jump label finish
@@ -68,11 +75,11 @@ public class Binary extends Expression {
             Label finish = new Label();
 
             //Load exp1, if true: jump to Label equalTrue
-            exp1.codeGen(mv);
+            exp1.codeGen(clars, methodDecl, mv);
             mv.visitJumpInsn(Opcodes.IFNE, equalTrue);
 
             //Load exp2, if false: jump to Label notEqualTrue
-            exp2.codeGen(mv);
+            exp2.codeGen(clars, methodDecl, mv);
             mv.visitJumpInsn(Opcodes.IFEQ, notEqualTrue);
 
             //visit Label equalTrue, load true, go to Label finish
@@ -86,34 +93,28 @@ public class Binary extends Expression {
 
             mv.visitLabel(finish);
         } else if (operator.equals("+") || operator.equals("-") || operator.equals("/") || operator.equals("*")) {
-            exp1.codeGen(mv);
-            exp2.codeGen(mv);
-            switch (operator){
-                case "+":
-                    if(exp1 instanceof JString && exp2 instanceof JString){
+            exp1.codeGen(clars, methodDecl, mv);
+            exp2.codeGen(clars, methodDecl, mv);
+            switch (operator) {
+                case "+" -> {
+                    if (exp1 instanceof JString && exp2 instanceof JString) {
                         //Append strings
                         mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/String", "concat", "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;", false);
                     } else {
                         mv.visitInsn(Opcodes.IADD);
                     }
-                    break;
-                case "-":
-                    mv.visitInsn(Opcodes.ISUB);
-                    break;
-                case "/":
-                    mv.visitInsn(Opcodes.IDIV);
-                    break;
-                case "*":
-                    mv.visitInsn(Opcodes.IMUL);
-                    break;
+                }
+                case "-" -> mv.visitInsn(Opcodes.ISUB);
+                case "/" -> mv.visitInsn(Opcodes.IDIV);
+                case "*" -> mv.visitInsn(Opcodes.IMUL);
             }
         }
         else {
             Label notEqual = new Label();
             Label finish = new Label();
 
-            exp1.codeGen(mv);
-            exp2.codeGen(mv);
+            exp1.codeGen(clars, methodDecl, mv);
+            exp2.codeGen(clars, methodDecl, mv);
 
             switch (operator) {
                 case "==" -> mv.visitJumpInsn(Opcodes.IF_ICMPNE, notEqual);

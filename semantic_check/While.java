@@ -5,27 +5,32 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 public class While extends Statement{
+    Expression condition;
     Statement stmt;
-    Expression exp;
+
+    public While(Expression condition, Statement stmt) {
+        this.condition = condition;
+        this.stmt = stmt;
+    }
 
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
-        if(exp.typeCheck(localVars, clars).equals(Type.BOOLEAN)){
-            return exp.typeCheck(localVars, clars);
+        if(condition.typeCheck(localVars, clars).equals(Type.BOOLEAN)){
+            return condition.typeCheck(localVars, clars);
         }
         return null;
     }
 
-    public void codeGen(MethodVisitor mv){
+    public void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
         Label start = new Label();
         Label end = new Label();
 
         mv.visitLabel(start);
 
-        exp.codeGen(mv);
+        condition.codeGen(clars, methodDecl, mv);
         mv.visitJumpInsn(Opcodes.IFEQ, end);
 
-        stmt.codeGen(mv);
+        stmt.codeGen(clars, methodDecl, mv);
 
         mv.visitJumpInsn(Opcodes.GOTO, start);
         mv.visitLabel(end);

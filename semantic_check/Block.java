@@ -1,41 +1,40 @@
 package semantic_check;
-import java.util.Map;
-import org.objectweb.asm.ClassWriter;
+
 import org.objectweb.asm.MethodVisitor;
 
-public class Block extends Statement{
+import java.util.Map;
+import java.util.Vector;
 
-    Statement[] stm;
-    Statement firstStmt;
+public class Block extends Statement {
 
-    public Block(Statement firstStmt, Statement[] stm){
-        this.firstStmt = firstStmt;
+    Vector<Statement> stm;
+
+    public Block(Vector<Statement> stm) {
         this.stm = stm;
     }
 
+
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
-        if(stm.length==0){
-            return firstStmt.typeCheck(localVars, clars);
+        Type blockType = Type.VOID;
+        for (Statement statement : stm) {
+            Type stmtType = statement.typeCheck(localVars, clars);
+            if (!stmtType.equals(Type.VOID)) {
+                if (blockType.equals(Type.VOID) || blockType.equals(stmtType)) {
+                    blockType = stmtType;
+                } else {
+                    throw new InvalidTypeException("Two statements have different return types: firstType: " + blockType + " secondType: " + stmtType);
+                }
+            }
         }
-        Statement[] nextStm = new Statement[stm.length-1];
-        for(int i = 1; i<nextStm.length; i++){
-            nextStm[i-1] =stm[i];
-        }
-        if(firstStmt==null){
-            return new Block(stm[0],nextStm).typeCheck(localVars, clars);
-        }
-        if(firstStmt.typeCheck(localVars,clars).equals(new Block(stm[0],nextStm).typeCheck(localVars, clars))){
-            return firstStmt.typeCheck(localVars, clars);
-        }
-        //TODO Exception
-        return null;
+        return blockType;
     }
 
-    public void codeGen(MethodVisitor mv){
-        firstStmt.codeGen(mv);
-        for (Statement statement: stm){
-            statement.codeGen(mv);
+    @Override
+    public void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
+        for (Statement statement : stm) {
+            statement.codeGen(clars, methodDecl, mv);
         }
     }
+
 }
