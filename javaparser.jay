@@ -78,10 +78,7 @@ fields : field { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
 
 field : type VARNAME SEMICOLON { $$ = new FieldDecl($2, $1); }
 
-type  : BOOLEAN { $$ = new Type($1); }
-      | CHAR { $$ = new Type($1); }
-      | INT { $$ = new Type($1); }
-      | STRING { $$ = new Type($1); }
+type : VARNAME { $$ = new Type($1); }
 
 methods : method { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
         | methods method { Vector fs = $1 ; fs.addElement($2); $$ = fs; }
