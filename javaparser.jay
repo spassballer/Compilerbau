@@ -38,7 +38,7 @@ class javaparser {
 %type <MethodDecl> method
 %type <Parameter> parameter
 %type <Block> block
-%type <statement> statement
+%type <Statement> statement
 %type <Expression> expression
 %type <If> ifthenstatement ifthenelsestatement 
 %type <While> whilestatement
@@ -86,7 +86,7 @@ type  : BOOLEAN { $$ = new Type($1); }
 methods : method { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
         | methods method { Vector fs = $1 ; fs.addElement($2); $$ = fs; }
 
-method : type VARNAME BRACKETOPEN parameters BRACKETCLOSED block { $$ = new MMethodDeclethod($2, $1, $4, $6); }
+method : type VARNAME BRACKETOPEN parameters BRACKETCLOSED block { $$ = new MethodDecl($2, $1, $4, $6); }
        | type VARNAME BRACKETOPEN BRACKETCLOSED block { $$ = new MethodDecl($2, $1, new Vector(), $5); }
 
 parameters : parameter { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
