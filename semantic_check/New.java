@@ -2,15 +2,16 @@ package semantic_check;
 import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
+import java.util.Vector;
 
 import static org.objectweb.asm.Opcodes.*;
 
 public class New extends StmtExpr {
 
     Type type;
-    Expression[] expressions;
+    Vector<Expression> expressions;
 
-    public New(Type type, Expression[] expressions) {
+    public New(Type type, Vector<Expression> expressions) {
         this.type = type;
         this.expressions = expressions;
     }
@@ -23,7 +24,7 @@ public class New extends StmtExpr {
                 || type.equals(Type.VOID)
                 || type.equals(Type.NULL)) {
             if(type.equals(clars.name)){
-                if(expressions.length == 0){
+                if(expressions.isEmpty()){
                     return type;
                 }
                 //TODO Exception No parameters allowed in empty Constructor

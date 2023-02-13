@@ -1,5 +1,6 @@
 package semantic_check;
 import java.util.HashMap;
+import java.util.Vector;
 
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
@@ -9,11 +10,11 @@ import static org.objectweb.asm.Opcodes.*;
 
 public class Clars {
     Type name;
-    FieldDecl[] fields;
-    MethodDecl[] methods;
+    Vector<FieldDecl> fields;
+    Vector<MethodDecl> methods;
     String className;
 
-    public Clars(Type type, FieldDecl[] fields, MethodDecl[] methods){
+    public Clars(Type type, Vector<FieldDecl> fields, Vector<MethodDecl> methods){
         this.name = type;
         this.fields = fields;
         this.methods = methods;

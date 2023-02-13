@@ -4,14 +4,15 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 import java.util.Map;
+import java.util.Vector;
 
 public class MethodCall extends StmtExpr implements Opcodes {
 
     Expression expr;
     String name;
-    Expression[] expressions;
+    Vector<Expression> expressions;
 
-    public MethodCall(Expression expr, String name, Expression[] expressions) {
+    public MethodCall(Expression expr, String name, Vector<Expression> expressions) {
         this.expr = expr;
         this.name = name;
         this.expressions = expressions;
@@ -28,11 +29,11 @@ public class MethodCall extends StmtExpr implements Opcodes {
         if(myMethodDecl == null){
             //TODO Exception Method doesnt exist
         }
-        if(expressions.length!=myMethodDecl.parameters.length){
+        if(expressions.size()!=myMethodDecl.parameters.size()){
             //TODO Exception Parameter error
         }
-        for(int i = 0; i<expressions.length; i++){
-            if(!expressions[i].type.equals(myMethodDecl.parameters[i].type)){
+        for(int i = 0; i<expressions.size(); i++){
+            if(!expressions.get(i).type.equals(myMethodDecl.parameters.get(i).type)){
                 //TODO Exception type mismatch
             }
         }
