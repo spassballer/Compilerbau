@@ -42,8 +42,10 @@ class Statement_Parser {
 %type <If> ifthenstatement ifthenelsestatement 
 %type <While> whilestatement
 %type <Return> returnstatement
+%type <StmtExprExpr> stmtExprExpr
 %type <StmtExprStmt> stmtExprStmt
 %type <StmtExpr> stmtExpr
+%type <LocalOrFieldVar> localOrFieldVar
 %type <LocalVarDecl> localVarDecl
 %type <This> this
 %type <Super> super
@@ -58,7 +60,7 @@ class Statement_Parser {
 %type <Assign> assign
 %type <New> new
 %type <MethodCall> methodCall emptyMethodCall
-%type <String> VARNAME INT NOT BINARYOPERATOR PLUSMINUSOPERATOR BOOLEAN STRING CHAR EQUALS
+%type <String> VARNAME INT NOT BINARYOPERATOR PLUSMINUSOPERATOR BOOLEAN STRING CHAR 
 
 %start class
 
