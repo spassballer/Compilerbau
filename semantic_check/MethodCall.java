@@ -29,12 +29,12 @@ public class MethodCall extends StmtExpr implements Opcodes {
         if(myMethodDecl == null){
             throw new NotDeclaredException("Method " + name + " does not exist in this class");
         }
-        if(expressions.length!=myMethodDecl.parameters.length){
-            throw new ParameterException("Method " + name + " expects " + myMethodDecl.parameters.length + " parameters, but got " + expressions.length);
+        if(expressions.size()!=myMethodDecl.parameters.size()){
+            throw new ParameterException("Method " + name + " expects " + myMethodDecl.parameters.size() + " parameters, but got " + expressions.size());
         }
-        for(int i = 0; i<expressions.length; i++){
-            if(!expressions[i].type.equals(myMethodDecl.parameters[i].type)){
-                throw new ParameterException("Expected parameter type" + myMethodDecl.parameters[i].type + ", but got " + expressions[i].type);
+        for(int i = 0; i<expressions.size(); i++){
+            if(!expressions.get(i).type.equals(myMethodDecl.parameters.get(i).type)){
+                throw new ParameterException("Expected parameter type" + myMethodDecl.parameters.get(i).type + ", but got " + expressions.get(i).type);
 
             }
         }

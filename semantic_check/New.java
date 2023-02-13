@@ -25,7 +25,7 @@ public class New extends StmtExpr {
                 || type.equals(Type.NULL)
                 || type.equals(Type.CLASSTYPE)) {
             if (type.equals(clars.name)) {
-                if (expressions.length == 0) {
+                if (expressions.size() == 0) {
                     return type;
                 }
                 throw new ParameterException("Parameters must be empty.");
