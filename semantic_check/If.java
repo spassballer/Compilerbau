@@ -6,11 +6,18 @@ import org.objectweb.asm.Opcodes;
 
 import java.util.Map;
 
-public class If {
+public class If extends Statement {
     Expression cond;
     Statement ifStmt;
     Statement elseStmt;
 
+    public If(Expression cond, Statement ifStmt, Statement elseStmt) {
+        this.cond = cond;
+        this.ifStmt = ifStmt;
+        this.elseStmt = elseStmt;
+    }
+
+    @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
         if (cond.typeCheck(localVars, clars).equals(new Type("boolean"))
                 && ifStmt.typeCheck(localVars, clars)
@@ -22,17 +29,19 @@ public class If {
         }
     }
 
-    void codeGen(MethodVisitor mv){
+
+    @Override
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
 
         Label skipIfLabel = new Label();
         Label skipElseLabel = new Label();
 
-        cond.codeGen(mv); //Load condition to stack: Still TODO?
+        cond.codeGen(clars, methodDecl, mv); //Load condition to stack: Still TODO?
         mv.visitJumpInsn(Opcodes.IFEQ, skipIfLabel);
 
 
         //IF BLOCK
-        ifStmt.codeGen(mv);
+        ifStmt.codeGen(clars, methodDecl, mv);
 
         if(elseStmt == null){ //else block does not exist, only have to visit Label for end of if block
             mv.visitLabel(skipIfLabel);
@@ -44,7 +53,7 @@ public class If {
              */
             mv.visitJumpInsn(Opcodes.GOTO, skipElseLabel);
             mv.visitLabel(skipIfLabel);
-            elseStmt.codeGen(mv);
+            elseStmt.codeGen(clars, methodDecl, mv);
             mv.visitLabel(skipElseLabel);
 
         }

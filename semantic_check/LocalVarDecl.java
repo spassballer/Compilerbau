@@ -8,6 +8,11 @@ public class LocalVarDecl extends Statement{
     Type varType;
     String varName;
 
+    public LocalVarDecl(Type varType, String varName) {
+        this.varType = varType;
+        this.varName = varName;
+    }
+
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
         if(localVars.containsKey(varName)){
@@ -24,7 +29,7 @@ public class LocalVarDecl extends Statement{
     }
 
     @Override
-    void codeGen(MethodVisitor mv) {
-
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
+        methodDecl.localVar.add(new LocalOrFieldVar(varName));
     }
 }

@@ -8,6 +8,10 @@ public class StmtExprStmt extends Statement {
 
     StmtExpr stmtExpr;
 
+    public StmtExprStmt(StmtExpr stmtExpr) {
+        this.stmtExpr = stmtExpr;
+    }
+
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
         stmtExpr.typeCheck(localVars, clars);
@@ -15,8 +19,8 @@ public class StmtExprStmt extends Statement {
     }
 
     @Override
-    void codeGen(MethodVisitor mv) {
-
+    void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
+        stmtExpr.codeGen(clars, methodDecl, mv);
     }
 
 }

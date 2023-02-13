@@ -4,19 +4,20 @@ import org.objectweb.asm.MethodVisitor;
 
 import java.util.Map;
 
-import static org.objectweb.asm.Opcodes.ACONST_NULL;
+public class JInteger extends Expression{
+    int jInteger;
 
-import static org.objectweb.asm.Opcodes.ACONST_NULL;
-
-public class JNull extends Expression{
+    public JInteger(String num) {
+        this.jInteger = Integer.parseInt(num);
+    }
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
-        return Type.NULL;
+        return Type.INT;
     }
 
     @Override
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
-        mv.visitInsn(ACONST_NULL);
+        mv.visitLdcInsn(jInteger);
     }
 }

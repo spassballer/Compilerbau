@@ -1,4 +1,5 @@
 package semantic_check;
+
 import org.objectweb.asm.ClassWriter;
 
 import java.util.Map;
@@ -9,19 +10,24 @@ public class FieldDecl {
     String name;
     Type type;
 
-    Type typeCheck(Map<String,Type> localVars, Clars clars){
-        if(!(type.equals(Type.BOOLEAN)
+    public FieldDecl(String name, Type type) {
+        this.name = name;
+        this.type = type;
+    }
+
+    void typeCheck(Map<String, Type> localVars, Clars clars) {
+        if (!(type.equals(Type.BOOLEAN)
                 || type.equals(Type.CHAR)
                 || type.equals(Type.INT)
-                || type.equals(Type.STRING))){
-            // TODO Exception
+                || type.equals(Type.STRING)
+                || type.equals(Type.CLASSTYPE))) {
+            throw new InvalidTypeException("Field" + name + "has an invalid type: " + type);
         }
-        for(FieldDecl field : clars.fields){
-            if(field.name.equals(name)){
-                // TODO Exception
+        for (FieldDecl field : clars.fields) {
+            if (field.name.equals(name)) {
+                throw new DuplicateException("The Field: " + name + " does already exists");
             }
         }
-        return type;
     }
 
     public void codeGen(ClassWriter cw) throws Exception {
