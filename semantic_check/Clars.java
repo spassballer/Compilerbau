@@ -37,27 +37,31 @@ public class Clars {
         return name;
     }
 
-    public void codeGen() throws Exception {
-        ClassWriter cw = new ClassWriter( ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
+    public void codeGen() {
+        try {
+            ClassWriter cw = new ClassWriter(ClassWriter.COMPUTE_FRAMES | ClassWriter.COMPUTE_MAXS);
 
-        cw.visit(Opcodes.V1_8,
-                Opcodes.ACC_PUBLIC,
-                className,
-                null,
-                "java/lang/Object",
-                null
-        );
+            cw.visit(Opcodes.V1_8,
+                    Opcodes.ACC_PUBLIC,
+                    className,
+                    null,
+                    "java/lang/Object",
+                    null
+            );
 
-        for (FieldDecl fieldDecl : fields) {
-            fieldDecl.codeGen(cw);
+            for (FieldDecl fieldDecl : fields) {
+                fieldDecl.codeGen(cw);
+            }
+            visitStandardConstructor(cw);
+            for (MethodDecl methodDecls : methods) {
+                methodDecls.codeGen(cw, this);
+            }
+
+            cw.visitEnd();
+            writeClassfile(cw);
+        } catch (Exception e){
+            e.printStackTrace();
         }
-        visitStandardConstructor(cw);
-        for (MethodDecl methodDecls : methods) {
-            methodDecls.codeGen(cw, this);
-        }
-
-        cw.visitEnd();
-        writeClassfile(cw);
     }
     public void visitStandardConstructor(ClassWriter cw) throws Exception {
         MethodVisitor constructorVisitor = cw.visitMethod(
