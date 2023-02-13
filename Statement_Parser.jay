@@ -4,90 +4,152 @@ import java.util.*;
 class Statement_Parser {
 %}
 
-%token LBRACE
-%token RBRACE
-%token LBRACKET
-%token RBRACKET
-%token IF
+%token CLASS
+%token VARNAME
+%token CBRACKETOPEN
+%token CBRACKETCLOSED
+%token BRACKETOPEN
+%token BRACKETCLOSED
 %token SEMICOLON
-%token IDENTIFIER
+%token BOOLEAN
+%token CHAR
+%token INT
+%token STRING
+%token COMMA
+%token IF
 %token WHILE
-%token DO
-%token PUBLIC
-%token PRIVATE
-%token PROTECTED
-%token PLUSPLUS
-%token MINUSMINUS
-%token SET
-%token NUMBER
-%token FOR
-%token PLUS
-%token MINUS
-%token MULTIPLY
-%token DIVIDE
+%token ELSE
+%token RETURN
+%token THIS
+%token SUPER
+%token BINARYOPERATOR
+%token PLUSMINUSOPERATOR
+%token NOT
+%token DOT
+%token NULL
+%token EQUAL
+%token NEW
+
 
 %%
 
-statement   : ifstatement {}
-            | emptystatement {}
-            | whilestatement {}
-            | dowhilestatement {}
-            | returnstatement {}
+programm : class { Program finalProgram = new Program($1); finalProgram.typeCheck(); BytecodeGenerator.codeGen(finalProgram); $$=finalProgram; }
+         | emptyClass { Program finalProgram = new Program($1); finalProgram.typeCheck(); BytecodeGenerator.codeGen(finalProgram); $$=finalProgram; }
 
-statements  : statement { }
-            | statements statement { }
+class : CLASS VARNAME CBRACKETOPEN fields methods CBRACKETCLOSED { $$ = new Class(new Type($2), $4, $5); System.out.println(new Class(new Type($2), $4, $5)); }
+      | CLASS VARNAME CBRACKETOPEN methods CBRACKETCLOSED { $$ = new Class(new Type($2), new Vector(), $4); }
+      | CLASS VARNAME CBRACKETOPEN fields CBRACKETCLOSED { $$ = new Class(new Type($2), $4, new Vector()); }
 
-ifstatement : IF LBRACE boolexpression RBRACE LBRACKET statements RBRACKET elsestatement { }
+emptyClass : CLASS VARNAME CBRACKETOPEN CBRACKETCLOSED { $$ = new Class(new Type($2), new Vector(), new Vector()); }
 
-elsestatement   : ELSE LBRACKET statements RBRACKET {}
-                | ELSE ifstatement {}
-                | {}
+fields : field { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
+       | fields field { Vector fs = $1 ; fs.addElement($2); $$ = fs; }
 
-emptystatement  : SEMICOLON {}
+field : type VARNAME SEMICOLON { $$ = new Field($2, $1); }
 
-whilestatement  : WHILE LBRACE boolexpression RBRACE LBRACKET statements RBRACKET {}
+type  : BOOLEAN { $$ = new Type($1); }
+      | CHAR { $$ = new Type($1); }
+      | INT { $$ = new Type($1); }
+      | STRING { $$ = new Type($1); }
 
-dowhilestatement    : DO LBRACKET statements RBRACKET WHILE LBRACE boolexpression RBRACE {}
+methods : method { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
+        | methods method { Vector fs = $1 ; fs.addElement($2); $$ = fs; }
 
-forstatement    : FOR LBRACE defineintstatement SEMICOLON boolexpression SEMICOLON mathexpression RBRACE LBRACKET statements RBRACKET {}
+method : type VARNAME BRACKETOPEN parameters BRACKETCLOSED block { $$ = new Method($2, $1, $4, $6); }
+       | type VARNAME BRACKETOPEN BRACKETCLOSED block { $$ = new Method($2, $1, new Vector(), $5); }
 
-forwithvariablestatement    : FOR LBRACE IDENTIFIER SEMICOLON boolexpression SEMICOLON mathexpression RBRACE LBRACKET statements RBRACKET {}
+parameters : parameter { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
+           | parameters COMMA parameter { Vector fs = $1 ; fs.addElement($3); $$ = fs; }
 
-classstatement  : visabiltyexpression CLASS IDENTIFIER LBRACKET statements RBRACKET {}
+parameter : type VARNAME { $$ = new Parameter($2, $1); }
 
-staticclassstatement    : visabiltyexpression staticexpression CLASS IDENTIFIER LBRACKET statements RBRACKET {}
+block : CBRACKETOPEN CBRACKETCLOSED { $$ = new Block(new Vector()); }
+      | CBRACKETOPEN statements CBRACKETCLOSED { $$ = new Block($2); }      
 
-returnstatement : RETURN SEMICOLON {}
-                | RETURN expression SEMICOLON {}
+statements  : statement { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
+            | statements statement { Vector fs = $1 ; fs.addElement($2); $$ = fs; }
 
-mathstatement   : IDENTIFIER {}
-                | IDENTIFIER PLUSPLUS {}
-                | IDENTIFIER MINUSMINUS {}
-                | IDENTIFIER SET IDENTIFIER mathexpression NUMBER {}
-                | IDENTIFIER SET IDENTIFIER mathexpression IDENTIFIER {}
-                | IDENTIFIER SET NUMBER mathexpression NUMBER {}
-                | IDENTIFIER SET NUMBER mathexpression IDENTIFIER {}
-                | LBRACE mathstatement RBRACE mathexpression mathstatement {}
-                | mathstatement mathexpression LBRACE mathstatement RBRACE {}
 
-staticexpression    : static {}
+statement : ifthenstatement {}
+          | ifthenelsestatement {}
+          | whilestatement {}
+          | block {}
+          | returnstatement SEMICOLON {}
+          | stmtExprStmt SEMICOLON {}
+          | localVarDecl SEMICOLON {}
 
-visabiltyexpression : PUBLIC {}
-                    | PRIVATE {}
-                    | PROTECTED {}
+ifthenstatement : IF BRACKETOPEN expression BRACKETCLOSED statement { $$ = new If($3, $5, null); }
 
-comparingexpression : AND {}
-                    | OR {}
-                    | EQUALS {}
-                    | LESSTHAN {}
-                    | GREATERTHAN {}
-                    | LESSOREQUAL {}
-                    | MOREOREQUAL {}
+ifthenelsestatement : IF BRACKETOPEN expression BRACKETCLOSED statement ELSE statement { $$ = new If($3, $5, $7); }
 
-mathexpression  : PLUS {}
-                | MINUS {}
-                | MULTIPLY {}
-                | DIVIDE {}
+whilestatement : WHILE BRACKETOPEN expression BRACKETCLOSED statement { $$ = new While($3, $5); }
+
+returnstatement : RETURN expression { $$ = new Return($2); }
+
+stmtExprExpr : stmtExpr { $$ = new StmtExprExpr($1); }
+
+stmtExprStmt : stmtExpr { $$ = new StmtExprStmt($1); }
+
+localVarDecl : type VARNAME { $$ = new LocalVarDecl($1, $2); }
+
+expression : this {}
+           | super {}
+           | localOrFieldVar {}
+           | integer {}
+           | binary {}
+           | unary {}
+           | bool {}
+           | instVar {}
+           | string {}
+           | jnull {}
+           | char {}
+           | stmtExprExpr {}
+           | LBRACE expression RBRACE {$$ = $2;}
+
+stmtExpr : assign {}
+         | new {}
+         | methodCall {}
+         | emptyMethodCall {}
+
+this : THIS { $$ = new This(); }
+
+super : SUPER { $$ = new Super(); }
+
+localOrFieldVar : VARNAME { $$ = new LocalOrFieldVar($1); }
+
+integer : INT { $$ = new Integer($1); }
+
+binary : expression BINARYOPERATOR expression { $$ = new Binary($2, $1, $3); }
+       | expression PLUSMINUSOPERATOR expression { $$ = new Binary($2, $1, $3); }
+
+////////////// lexer rechenoperationen zusammen fassen (+,- PLUSMINUSOPERATOR, rest BINARYOPERATOR)
+
+unary : NOT expression { $$ = new Unary($1, $2); }
+      | PLUSMINUSOPERATOR expression { $$ = new Unary($1, $2); }
+
+bool : BOOLEAN { $$ = new Bool($1); }
+
+instVar : expression DOT VARNAME { $$ = new InstVar($1, $3); }
+
+string : STRING { $$ = new JString($1); }
+
+jnull : NULL { $$ = new Jnull(); }
+
+char : CHAR { $$ = new Char($1); }
+
+assign : VARNAME EQUAL expression { $$ = new Assign($1, $3); }
+
+new : NEW type BRACKETOPEN expressions BRACKETCLOSED { $$ = new New($2, $4); }
+    | NEW type BRACKETOPEN BRACKETCLOSED { $$ = new New($2, new Vector()); }
+
+methodCall : expression DOT VARNAME BRACKETOPEN expressions BRACKETCLOSED { $$ = new MethodCall($1, $3, $5); }
+           | VARNAME BRACKETOPEN expressions BRACKETCLOSED { $$ = new MethodCall(new This(), $1, $3); }
+
+emptyMethodCall : expression DOT VARNAME BRACKETOPEN BRACKETCLOSED { $$ = new MethodCall($1, $3, new Vector()); }
+                | VARNAME BRACKETOPEN BRACKETCLOSED { $$ = new MethodCall(new This(), $1, new Vector()); }
+
+expressions : expression { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
+            | expressions COMMA expression { Vector fs = $1 ; fs.addElement($3); $$ = fs; }
 
 %%
   }
