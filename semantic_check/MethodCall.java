@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class MethodCall extends StmtExpr implements Opcodes {
 
-    Expression returnExpression;
+    Expression expr;
     String name;
     Expression[] expressions;
 
@@ -36,12 +36,17 @@ public class MethodCall extends StmtExpr implements Opcodes {
     @Override
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
         StringBuilder parameterTypes = new StringBuilder();
+        String descriptor = null;
         for (Expression expression : expressions)
             parameterTypes.append(expression.type.getASMDescriptor());
-        String descriptor = "("+parameterTypes+")"+ returnExpression.type.getASMDescriptor();
+        for (MethodDecl method : clars.methods)
+            if (this.name.equals(method.name))
+                descriptor = "("+parameterTypes+")"+ method.returnType.getASMDescriptor();
+        if (descriptor == null)
+            throw new Exception("Could not find method declaration for: " + this.name);
+
         mv.visitVarInsn(ALOAD, 0);
         mv.visitMethodInsn(INVOKEVIRTUAL, clars.className, name, descriptor, false);
-        //methodVisitor.visitInsn(POP); //TODO: no assign + no void? -> pop value from stack!
     }
 
 }
