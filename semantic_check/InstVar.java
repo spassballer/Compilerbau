@@ -33,5 +33,8 @@ public class InstVar extends Expression{
     @Override
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) {
         //TODO: was ist das überhaupt???
+        // "Instanz variable"
+        // also z.B.:
+        // Auto.reifen
     }
 }

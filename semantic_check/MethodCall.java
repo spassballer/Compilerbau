@@ -20,14 +20,14 @@ public class MethodCall extends StmtExpr implements Opcodes {
             }
         }
         if(myMethodDecl == null){
-            //TODO Exception Method doesnt exist
+            throw new NotDeclaredException("Method " + name + " does not exist in this class");
         }
         if(expressions.length!=myMethodDecl.parameters.length){
-            //TODO Exception Parameter error
+            throw new ParameterException("Method " + name + " expects " + myMethodDecl.parameters.length + " parameters, but got " + expressions.length);
         }
         for(int i = 0; i<expressions.length; i++){
             if(!expressions[i].type.equals(myMethodDecl.parameters[i].type)){
-                //TODO Exception type mismatch
+                throw new ParameterException("Expected parameter type" + myMethodDecl.parameters[i].type + ", but got " + expressions[i].type);
             }
         }
         return myMethodDecl.returnType;
