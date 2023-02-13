@@ -9,6 +9,10 @@ public class Return extends Statement implements Opcodes {
 
     Expression expression;
 
+    public Return(Expression expression) {
+        this.expression = expression;
+    }
+
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
         return expression.typeCheck(localVars, clars);

@@ -10,6 +10,11 @@ public class Assign extends StmtExpr implements Opcodes {
     String name;
     Expression expression;
 
+    public Assign(final String name, final Expression expression) {
+        this.name = name;
+        this.expression = expression;
+    }
+
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
         boolean fieldVar = false;

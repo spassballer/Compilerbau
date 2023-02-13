@@ -11,6 +11,12 @@ public class If extends Statement {
     Statement ifStmt;
     Statement elseStmt;
 
+    public If(Expression cond, Statement ifStmt, Statement elseStmt) {
+        this.cond = cond;
+        this.ifStmt = ifStmt;
+        this.elseStmt = elseStmt;
+    }
+
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
         if (cond.typeCheck(localVars, clars).equals(new Type("boolean"))

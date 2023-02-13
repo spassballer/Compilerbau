@@ -10,6 +10,11 @@ public class New extends StmtExpr {
     Type type;
     Expression[] expressions;
 
+    public New(Type type, Expression[] expressions) {
+        this.type = type;
+        this.expressions = expressions;
+    }
+
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
         if (type.equals(Type.BOOLEAN)

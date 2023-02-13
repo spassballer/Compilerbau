@@ -11,6 +11,12 @@ public class Binary extends Expression {
     Expression exp1;
     Expression exp2;
 
+    public Binary(String operator, Expression exp1, Expression exp2) {
+        this.operator = operator;
+        this.exp1 = exp1;
+        this.exp2 = exp2;
+    }
+
     @Override
     Type typeCheck(Map<String, Type> localvars,Clars clars) {
         if (exp1.typeCheck(localvars,clars).equals(exp2.typeCheck(localvars,clars))){

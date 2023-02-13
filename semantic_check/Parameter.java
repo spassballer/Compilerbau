@@ -5,12 +5,12 @@ import org.objectweb.asm.MethodVisitor;
 import java.util.Map;
 
 class Parameter {
-    public Type type;
     public String name;
+    public Type type;
 
-    public Parameter(Type type, String name) {
-        this.type = type;
+    public Parameter( String name, Type type) {
         this.name = name;
+        this.type = type;
     }
 
     public Type typeCheck(Map<String, Type> localVars, Clars clars) {

@@ -10,6 +10,10 @@ import static org.objectweb.asm.Opcodes.ISTORE;
 public class Char extends Expression{
     char schar;
 
+    public Char(final String ch) {
+        this.schar = ch.toCharArray()[1];
+    }
+
     @Override
     Type typeCheck(Map<String, Type> localvars,Clars clars) {
         return Type.CHAR;

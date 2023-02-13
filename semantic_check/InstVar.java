@@ -9,6 +9,11 @@ public class InstVar extends Expression{
     Expression expression;
     String name;
 
+    public InstVar(Expression expression, String name) {
+        this.expression = expression;
+        this.name = name;
+    }
+
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
         Type exprType = expression.typeCheck(localvars, clars);

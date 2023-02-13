@@ -11,6 +11,12 @@ public class MethodCall extends StmtExpr implements Opcodes {
     String name;
     Expression[] expressions;
 
+    public MethodCall(Expression expr, String name, Expression[] expressions) {
+        this.expr = expr;
+        this.name = name;
+        this.expressions = expressions;
+    }
+
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
         MethodDecl myMethodDecl = null;

@@ -7,6 +7,10 @@ import java.util.Map;
 public class JString extends Expression{
     String str;
 
+    public JString(String str) {
+        this.str = str;
+    }
+
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
         return Type.STRING;
