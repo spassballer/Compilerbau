@@ -39,4 +39,9 @@ public class Type {
             return "V";
         throw new Exception("Unknown type: " + this.type);
     }
+
+    @Override
+    public String toString(){
+        return type;
+    }
 }
