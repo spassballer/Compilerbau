@@ -6,8 +6,8 @@ import java.util.Map;
 public class Bool extends Expression {
     boolean bool;
 
-    public Bool(boolean bool) {
-        this.bool = bool;
+    public Bool(String bool) {
+        this.bool = Boolean.parseBoolean(bool);
     }
 
     @Override
