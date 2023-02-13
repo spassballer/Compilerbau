@@ -25,16 +25,19 @@ public class Binary extends Expression {
                 throw new InvalidTypeException("Invalid type " + exp1.type +" must be String or int");
             }
             if (operator.equals("+")) {
-                return exp1.typeCheck(localvars, clars);
+                type = exp1.typeCheck(localvars, clars);
+                return type;
             }
             else if ("-%*".contains(operator)) {
                 if (exp1.typeCheck(localvars, clars).equals(Type.INT)) {
-                    return Type.INT;
+                    type = Type.INT;
+                    return type;
                 }
             }
             else if (operator.equals("&&") || operator.equals("||")) {
                 if (exp1.typeCheck(localvars, clars).equals(Type.BOOLEAN)) {
-                    return Type.BOOLEAN;
+                    type = Type.BOOLEAN;
+                    return type;
                 }
             }
             else {

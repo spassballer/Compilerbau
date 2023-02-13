@@ -22,13 +22,15 @@ public class Unary extends Expression{
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
         if(expr.typeCheck(localvars, clars).equals(Type.INT)){
             if(operator.contains("+")||operator.contains("-")){
-                return Type.INT;
+                type = Type.INT;
+                return type;
             }
             throw new InvalidTypeException("Invalid operator " + operator + " for integer");
         }
         if(expr.typeCheck(localvars, clars).equals(Type.BOOLEAN)){
             if(operator.contains("!")){
-                return Type.BOOLEAN;
+                type = Type.BOOLEAN;
+                return type;
             }
             throw new InvalidTypeException("Invalid operator " + operator + " for boolean");
         }

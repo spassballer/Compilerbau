@@ -21,7 +21,8 @@ public class InstVar extends Expression {
         if (exprType.equals(Type.CLASSTYPE)) {
             for (FieldDecl field : clars.fields) {
                 if (field.name.equals(name)) {
-                    return field.type;
+                    type = field.type;
+                    return type;
                 }
             }
             throw new NotDeclaredException("The field: " + name +" is not declared in class: " + clars.className);
