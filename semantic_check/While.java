@@ -1,4 +1,4 @@
-package semantic_check;
+
 import java.util.Map;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
