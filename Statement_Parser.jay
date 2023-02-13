@@ -37,6 +37,8 @@ class Statement_Parser {
 %type <MethodDecl> method
 %type <Parameter> parameter
 %type <Block> block
+%type <statement> statement
+%type <Expression> expression
 %type <If> ifthenstatement ifthenelsestatement 
 %type <While> whilestatement
 %type <Return> returnstatement
