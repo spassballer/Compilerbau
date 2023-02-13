@@ -30,22 +30,49 @@ class Statement_Parser {
 %token EQUAL
 %token NEW
 
+%type <Clars> class emptyClass
+%type <Vector> fields statements methods expressions parameters
+%type <FieldDecl> field
+%type <Type> type
+%type <MethodDecl> method
+%type <Parameter> parameter
+%type <Block> block
+%type <If> ifthenstatement ifthenelsestatement 
+%type <While> whilestatement
+%type <Return> returnstatement
+%type <StmtExprStmt> stmtExprStmt
+%type <StmtExpr> stmtExpr
+%type <LocalVarDecl> localVarDecl
+%type <This> this
+%type <Super> super
+%type <JInteger> integer
+%type <Binary> binary
+%type <Unary> unary
+%type <Bool> bool
+%type <InstVar> instVar
+%type <JString> string
+%type <Jnull> jnull
+%type <Char> char
+%type <Assign> assign
+%type <New> new
+%type <MethodCall> methodCall emptyMethodCall
+%type <String> VARNAME INT NOT BINARYOPERATOR PLUSMINUSOPERATOR BOOLEAN STRING CHAR EQUALS
 
 %%
 
 programm : class { Program finalProgram = new Program($1); finalProgram.typeCheck(); BytecodeGenerator.codeGen(finalProgram); $$=finalProgram; }
          | emptyClass { Program finalProgram = new Program($1); finalProgram.typeCheck(); BytecodeGenerator.codeGen(finalProgram); $$=finalProgram; }
 
-class : CLASS VARNAME CBRACKETOPEN fields methods CBRACKETCLOSED { $$ = new Class(new Type($2), $4, $5); System.out.println(new Class(new Type($2), $4, $5)); }
-      | CLASS VARNAME CBRACKETOPEN methods CBRACKETCLOSED { $$ = new Class(new Type($2), new Vector(), $4); }
-      | CLASS VARNAME CBRACKETOPEN fields CBRACKETCLOSED { $$ = new Class(new Type($2), $4, new Vector()); }
+class : CLASS VARNAME CBRACKETOPEN fields methods CBRACKETCLOSED { $$ = new Clars(new Type($2), $4, $5); System.out.println(new Class(new Type($2), $4, $5)); }
+      | CLASS VARNAME CBRACKETOPEN methods CBRACKETCLOSED { $$ = new Clars(new Type($2), new Vector(), $4); }
+      | CLASS VARNAME CBRACKETOPEN fields CBRACKETCLOSED { $$ = new Clars(new Type($2), $4, new Vector()); }
 
-emptyClass : CLASS VARNAME CBRACKETOPEN CBRACKETCLOSED { $$ = new Class(new Type($2), new Vector(), new Vector()); }
+emptyClass : CLASS VARNAME CBRACKETOPEN CBRACKETCLOSED { $$ = new Clars(new Type($2), new Vector(), new Vector()); }
 
 fields : field { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
        | fields field { Vector fs = $1 ; fs.addElement($2); $$ = fs; }
 
-field : type VARNAME SEMICOLON { $$ = new Field($2, $1); }
+field : type VARNAME SEMICOLON { $$ = new FieldDecl($2, $1); }
 
 type  : BOOLEAN { $$ = new Type($1); }
       | CHAR { $$ = new Type($1); }
@@ -55,8 +82,8 @@ type  : BOOLEAN { $$ = new Type($1); }
 methods : method { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
         | methods method { Vector fs = $1 ; fs.addElement($2); $$ = fs; }
 
-method : type VARNAME BRACKETOPEN parameters BRACKETCLOSED block { $$ = new Method($2, $1, $4, $6); }
-       | type VARNAME BRACKETOPEN BRACKETCLOSED block { $$ = new Method($2, $1, new Vector(), $5); }
+method : type VARNAME BRACKETOPEN parameters BRACKETCLOSED block { $$ = new MMethodDeclethod($2, $1, $4, $6); }
+       | type VARNAME BRACKETOPEN BRACKETCLOSED block { $$ = new MethodDecl($2, $1, new Vector(), $5); }
 
 parameters : parameter { Vector fs = new Vector(); fs.addElement($1); $$ = fs; }
            | parameters COMMA parameter { Vector fs = $1 ; fs.addElement($3); $$ = fs; }
@@ -117,7 +144,7 @@ super : SUPER { $$ = new Super(); }
 
 localOrFieldVar : VARNAME { $$ = new LocalOrFieldVar($1); }
 
-integer : INT { $$ = new Integer($1); }
+integer : INT { $$ = new JInteger($1); }
 
 binary : expression BINARYOPERATOR expression { $$ = new Binary($2, $1, $3); }
        | expression PLUSMINUSOPERATOR expression { $$ = new Binary($2, $1, $3); }
@@ -133,7 +160,7 @@ instVar : expression DOT VARNAME { $$ = new InstVar($1, $3); }
 
 string : STRING { $$ = new JString($1); }
 
-jnull : NULL { $$ = new Jnull(); }
+jnull : NULL { $$ = new JNull(); }
 
 char : CHAR { $$ = new Char($1); }
 
