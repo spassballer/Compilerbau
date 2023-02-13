@@ -22,24 +22,27 @@ public class Binary extends Expression {
         if (exp1.typeCheck(localvars,clars).equals(exp2.typeCheck(localvars,clars))){
             if (!(exp1.typeCheck(localvars,clars).equals(Type.INT) ||
                     exp1.typeCheck(localvars,clars).equals(Type.STRING))){
-                return null; //TODO
+                throw new InvalidTypeException("Invalid type " + exp1.type +" must be String or int");
             }
             if (operator.equals("+")) {
                 return exp1.typeCheck(localvars, clars);
             }
-            if ("-%*".contains(operator)) {
+            else if ("-%*".contains(operator)) {
                 if (exp1.typeCheck(localvars, clars).equals(Type.INT)) {
                     return Type.INT;
                 }
             }
-            if (operator.equals("&&") || operator.equals("||")) {
+            else if (operator.equals("&&") || operator.equals("||")) {
                 if (exp1.typeCheck(localvars, clars).equals(Type.BOOLEAN)) {
                     return Type.BOOLEAN;
                 }
             }
+            else {
+                throw new InvalidTypeException("Invalid operator " + operator);
+            }
 
         }
-        return null; //TODO throw an error
+        throw new InvalidTypeException("The type " + exp1.type +  " and type " + exp2.type +" cant be combined");
     }
 
     @Override

@@ -38,8 +38,7 @@ public class LocalOrFieldVar extends Expression implements Opcodes {
                 return fieldVar.type;
             }
         }
-        // TODO Exception not defined
-        return null;
+        throw new NotDeclaredException("The variable " + name +" is not declared");
     }
 
     @Override

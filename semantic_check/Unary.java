@@ -24,16 +24,15 @@ public class Unary extends Expression{
             if(operator.contains("+")||operator.contains("-")){
                 return Type.INT;
             }
-            //TODO Exception invalid operator for integer
+            throw new InvalidTypeException("Invalid operator " + operator + " for integer");
         }
         if(expr.typeCheck(localvars, clars).equals(Type.BOOLEAN)){
             if(operator.contains("!")){
                 return Type.BOOLEAN;
             }
-            //TODO Exception invalid operator for boolean
+            throw new InvalidTypeException("Invalid operator " + operator + " for boolean");
         }
-        //TODO Exception invalid blabla bla
-        return null;
+        throw new InvalidTypeException("Invalid type " + expr.type);
     }
 
     @Override

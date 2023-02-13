@@ -15,27 +15,18 @@ public class InstVar extends Expression {
         this.expression = expression;
         this.name = name;
     }
-
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
         Type exprType = expression.typeCheck(localvars, clars);
-        if (exprType.equals(Type.BOOLEAN)
-                || exprType.equals(Type.CHAR)
-                || exprType.equals(Type.INT)
-                || exprType.equals(Type.VOID)
-                || exprType.equals(Type.NULL)) {
-            if (exprType.equals(clars.name)) {
-                for (FieldDecl field : clars.fields) {
-                    if (field.name.equals(name)) {
-                        return field.type;
-                    }
+        if (exprType.equals(Type.CLASSTYPE)) {
+            for (FieldDecl field : clars.fields) {
+                if (field.name.equals(name)) {
+                    return field.type;
                 }
-                //TODO Exception: Class does not contain variable name
             }
-            //TODO Exception: Expression is not equal to expected class type
+            throw new NotDeclaredException("The field: " + name +" is not declared in class: " + clars.className);
         }
-        //TODO Exception: Expression must be a valid Class type
-        return null;
+        throw new InvalidTypeException("The expression type: " + name +" doesnt match class: " + clars.className );
     }
 
     @Override
