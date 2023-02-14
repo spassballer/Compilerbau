@@ -28,4 +28,11 @@ class IfTest {
             return b;
         }
     }
+
+    String e(boolean a){
+        if(!a){
+            return null;
+        }
+        return 3;
+    }
 }
