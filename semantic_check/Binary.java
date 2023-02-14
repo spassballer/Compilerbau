@@ -109,7 +109,7 @@ public class Binary extends Expression {
             exp2.codeGen(clars, methodDecl, mv);
             switch (operator) {
                 case "+":
-                    if (exp1 instanceof JString && exp2 instanceof JString) {
+                    if (exp1.type.equals(Type.STRING) && exp2.type.equals(Type.STRING)) {
                         //Append strings
                         mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/String", "concat", "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;", false);
                     } else {

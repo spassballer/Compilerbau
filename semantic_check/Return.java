@@ -24,7 +24,7 @@ public class Return extends Statement implements Opcodes {
 
         if (expression!= null) {
             expression.codeGen(clars, methodDecl, mv);
-            if (expression instanceof JString)
+            if (expression.type.equals(Type.STRING))
                 mv.visitInsn(ARETURN);
             else
                 mv.visitInsn(IRETURN);
