@@ -35,4 +35,5 @@ test:
 	java -cp "asm-7.1.jar:." Main < testfiles/WhileTest.java
 	java -cp "asm-7.1.jar:." Main < testfiles/InstVarTest.java
 	java -cp "asm-7.1.jar:." Main < testfiles/BinaryTest.java
+	java -cp "asm-7.1.jar:." Main < testfiles/UnaryTest.java
 

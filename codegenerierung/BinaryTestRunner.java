@@ -16,10 +16,10 @@ public class BinaryTestRunner {
         System.out.println("Multiply sucessful: " + (binaryTest.multiply(a, b) == a * b));
         System.out.println("Divide sucessful: " + (binaryTest.divide(a, b) == a / b));
         System.out.println("Modulo sucessful: " + (binaryTest.modulo(a, b) == a % b));
-        System.out.println("AND(T,T) sucessful: " + (binaryTest.and(t, t) == t && t));
-        System.out.println("AND(T,F) sucessful: " + (binaryTest.and(t, f) == t && f));
-        System.out.println("OR(T,F) sucessful: " + (binaryTest.or(t, f) == t && f));
-        System.out.println("OR(F,F) sucessful: " + (binaryTest.or(f, f) == f && f));
+        System.out.println("AND(T,T) sucessful: " + (binaryTest.and(t, t) == (t && t)));
+        System.out.println("AND(T,F) sucessful: " + (binaryTest.and(t, f) == (t && f)));
+        System.out.println("OR(T,F) sucessful: " + (binaryTest.or(t, f) == (t || f)));
+        System.out.println("OR(F,F) sucessful: " + (binaryTest.or(f, f) == (f || f)));
         System.out.println("Equal(Int) sucessful: " + (binaryTest.equal(a, b) == (a == b)));
         System.out.println("Equal(Int) sucessful: " + (binaryTest.equal(a, a) == (a == a)));
         System.out.println("Not Equal(Int) sucessful: " + (binaryTest.notEqual(a, b) == (a != b)));
