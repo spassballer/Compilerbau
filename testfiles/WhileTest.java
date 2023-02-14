@@ -11,15 +11,15 @@ class WhileTest {
         }
     }
 
-    void c(int a, int b){
-        while(a >= b && b == 5){
-            a = a + 1;
+    void c(boolean a, boolean b){
+        while(a && b){
+            a = b;
         }
     }
 
-    void d(int a, int b){
-        while(a < b || b != 5){
-            a = a + 1;
+    void d(boolean a, boolean b){
+        while(a || b){
+            a = b;
         }
     }
 
