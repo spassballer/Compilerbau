@@ -31,7 +31,7 @@ class javaparser {
 %token EQUAL
 %token NEW
 
-%type <Clars> class emptyClass
+%type <Clars> class
 %type <Vector> fields statements methods expressions parameters
 %type <FieldDecl> field
 %type <Type> type

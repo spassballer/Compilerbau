@@ -18,34 +18,39 @@ public class Binary extends Expression {
     }
 
     @Override
-    Type typeCheck(Map<String, Type> localvars,Clars clars) {
-        if (exp1.typeCheck(localvars,clars).equals(exp2.typeCheck(localvars,clars))){
-            if (!(exp1.typeCheck(localvars,clars).equals(Type.INT) ||
-                    exp1.typeCheck(localvars,clars).equals(Type.STRING))){
-                throw new InvalidTypeException("Invalid type " + exp1.type +" must be String or int");
-            }
-            if (operator.equals("+")) {
-                type = exp1.typeCheck(localvars, clars);
-                return type;
-            }
-            else if ("-%*".contains(operator)) {
-                if (exp1.typeCheck(localvars, clars).equals(Type.INT)) {
-                    type = Type.INT;
+    Type typeCheck(Map<String, Type> localvars, Clars clars) {
+        if (exp1.typeCheck(localvars, clars).equals(exp2.typeCheck(localvars, clars))) {
+            if (!(exp1.typeCheck(localvars, clars).equals(Type.INT) ||
+                    exp1.typeCheck(localvars, clars).equals(Type.STRING))) {
+                if (operator.equals("+")) {
+                    type = exp1.typeCheck(localvars, clars);
                     return type;
                 }
-            }
-            else if (operator.equals("&&") || operator.equals("||")) {
-                if (exp1.typeCheck(localvars, clars).equals(Type.BOOLEAN)) {
+                if (exp1.typeCheck(localvars, clars).equals(Type.INT)) {
+                    if ("-%*".contains(operator)
+                        || operator.equals("==")
+                        || operator.equals("!=")
+                        || operator.equals(">=")
+                        || operator.equals(">")
+                        || operator.equals("<=")
+                        || operator.equals("<")) {
+                            type = Type.INT;
+
+                        return type;
+                    }
+                }
+                throw new InvalidTypeException("Invalid type " + exp1.type + " must be String or int");
+            } else if (exp1.typeCheck(localvars, clars).equals(Type.BOOLEAN)) {
+                if (operator.equals("&&") || operator.equals("||") || operator.equals("!=") || operator.equals("==")) {
                     type = Type.BOOLEAN;
                     return type;
                 }
-            }
-            else {
+            } else {
                 throw new InvalidTypeException("Invalid operator " + operator);
             }
 
         }
-        throw new InvalidTypeException("The type " + exp1.type +  " and type " + exp2.type +" cant be combined");
+        throw new InvalidTypeException("The type " + exp1.type + " and type " + exp2.type + " cant be combined");
     }
 
     @Override
