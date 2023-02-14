@@ -20,7 +20,7 @@ public class Block extends Statement {
         for (Statement statement : stm) {
             Type stmtType = statement.typeCheck(localVars, clars);
             if (!stmtType.equals(Type.VOID)) {
-                if (blockType.equals(Type.VOID) || blockType.equals(stmtType)) {
+                if (blockType.equals(Type.VOID) || blockType.equals(stmtType) || blockType.equals(Type.NULL)) {
                     blockType = stmtType;
                 } else {
                     throw new InvalidTypeException("Two statements have different return types: firstType: " + blockType + " secondType: " + stmtType);
