@@ -33,6 +33,6 @@ class IfTest {
         if(!a){
             return null;
         }
-        return 3;
+        return "3";
     }
 }

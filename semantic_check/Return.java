@@ -31,6 +31,6 @@ public class Return extends Statement implements Opcodes {
         }
         else
             mv.visitInsn(RETURN);
-        mv.visitJumpInsn(GOTO, methodDecl.endLabel);
+        //mv.visitJumpInsn(GOTO, methodDecl.endLabel);
     }
 }
