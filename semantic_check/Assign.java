@@ -52,11 +52,11 @@ public class Assign extends StmtExpr implements Opcodes {
             mv.visitVarInsn(ALOAD, 0);
         expression.codeGen(clars, methodDecl, mv);
         if (index != -1)
-            if (expression.type.equals(Type.STRING))
+            if (this.type.equals(Type.STRING))
                 mv.visitVarInsn(ASTORE, index);
             else
                 mv.visitVarInsn(ISTORE, index);
         else
-            mv.visitFieldInsn(PUTFIELD, clars.className, name, expression.type.getASMDescriptor());
+            mv.visitFieldInsn(PUTFIELD, clars.className, name, this.type.getASMDescriptor());
     }
 }
