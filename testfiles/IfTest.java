@@ -10,9 +10,8 @@ class IfTest {
     boolean if2(boolean a, boolean b){
         if(a != b){
             return a;
-        }else {
-            return b;
         }
+        return b;
     }
     boolean if3(boolean a){
         if(a){

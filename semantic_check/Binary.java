@@ -27,15 +27,16 @@ public class Binary extends Expression {
                     return type;
                 }
                 if (exp1.typeCheck(localvars, clars).equals(Type.INT)) {
-                    if ("-%*".contains(operator)
-                        || operator.equals("==")
-                        || operator.equals("!=")
-                        || operator.equals(">=")
-                        || operator.equals(">")
-                        || operator.equals("<=")
-                        || operator.equals("<")) {
-                            type = Type.INT;
-
+                    if ("-%*".contains(operator)) {
+                        type = Type.INT;
+                        return type;
+                    } else if (operator.equals("==")
+                            || operator.equals("!=")
+                            || operator.equals(">=")
+                            || operator.equals(">")
+                            || operator.equals("<=")
+                            || operator.equals("<")) {
+                        type = Type.BOOLEAN;
                         return type;
                     }
                 }
