@@ -1,5 +1,5 @@
 class IfTest {
-    boolean if1(boolean a, boolean b){
+    boolean a(boolean a, boolean b){
         if(a == b){
             return a;
         }else {
@@ -7,13 +7,13 @@ class IfTest {
         }
     }
 
-    boolean if2(boolean a, boolean b){
+    boolean b(boolean a, boolean b){
         if(a != b){
             return a;
         }
         return b;
     }
-    boolean if3(boolean a){
+    boolean c(boolean a){
         if(a){
             return a;
         }else {
@@ -21,7 +21,7 @@ class IfTest {
         }
     }
 
-    int if4(int a, int b){
+    int d(int a, int b){
         if(a <= b){
             return a;
         }else {
