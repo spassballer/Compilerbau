@@ -12,7 +12,7 @@ type = (int|String|boolean|char|void)
 bool = (true|false)
 string = \"([^\"]|\\\")*\"
 char = '[^']'
-varname = [a-zA-Z|"_"|"-"]+
+varname = [a-zA-Z|"_"]+[a-zA-Z|"_"|"-"]*
 
 %%
 
