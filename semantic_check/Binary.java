@@ -20,8 +20,8 @@ public class Binary extends Expression {
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
         if (exp1.typeCheck(localvars, clars).equals(exp2.typeCheck(localvars, clars))) {
-            if (!(exp1.typeCheck(localvars, clars).equals(Type.INT) ||
-                    exp1.typeCheck(localvars, clars).equals(Type.STRING))) {
+            if (exp1.typeCheck(localvars, clars).equals(Type.INT) ||
+                    exp1.typeCheck(localvars, clars).equals(Type.STRING)) {
                 if (operator.equals("+")) {
                     type = exp1.typeCheck(localvars, clars);
                     return type;
