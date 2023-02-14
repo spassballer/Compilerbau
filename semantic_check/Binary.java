@@ -111,7 +111,7 @@ public class Binary extends Expression {
             mv.visitInsn(Opcodes.ICONST_0);
 
             mv.visitLabel(finish);
-        } else if (operator.equals("+") || operator.equals("-") || operator.equals("/") || operator.equals("*")) {
+        } else if (operator.equals("+") || operator.equals("-") || operator.equals("/") || operator.equals("*") || operator.equals("%")) {
             exp1.codeGen(clars, methodDecl, mv);
             exp2.codeGen(clars, methodDecl, mv);
             switch (operator) {
@@ -132,6 +132,8 @@ public class Binary extends Expression {
                 case "*":
                     mv.visitInsn(Opcodes.IMUL);
                     break;
+                case "%":
+                    mv.visitInsn(Opcodes.IREM);
             }
         } else {
             Label notEqual = new Label();
