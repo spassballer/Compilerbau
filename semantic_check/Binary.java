@@ -19,39 +19,38 @@ public class Binary extends Expression {
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
-        if (exp1.typeCheck(localvars, clars).equals(exp2.typeCheck(localvars, clars))) {
-            if (exp1.typeCheck(localvars, clars).equals(Type.INT) ||
-                    exp1.typeCheck(localvars, clars).equals(Type.STRING)) {
-                if (operator.equals("+")) {
-                    type = exp1.typeCheck(localvars, clars);
-                    return type;
-                }
-                if (exp1.typeCheck(localvars, clars).equals(Type.INT)) {
-                    if ("-%*/".contains(operator)) {
-                        type = Type.INT;
-                        return type;
-                    } else if (operator.equals("==")
-                            || operator.equals("!=")
-                            || operator.equals(">=")
-                            || operator.equals(">")
-                            || operator.equals("<=")
-                            || operator.equals("<")) {
-                        type = Type.BOOLEAN;
-                        return type;
-                    }
-                }
-                throw new InvalidTypeException("Invalid type " + exp1.type + " must be String or int");
-            } else if (exp1.typeCheck(localvars, clars).equals(Type.BOOLEAN)) {
-                if (operator.equals("&&") || operator.equals("||") || operator.equals("!=") || operator.equals("==")) {
-                    type = Type.BOOLEAN;
-                    return type;
-                }
-            } else {
-                throw new InvalidTypeException("Invalid operator " + operator);
-            }
-
+        Type type1 = exp1.typeCheck(localvars,clars);
+        Type type2 = exp2.typeCheck(localvars,clars);
+        if (!type1.equals(type2)) {
+            throw new InvalidTypeException("The type " + exp1.type + " and type " + exp2.type + " cant be combined");
         }
-        throw new InvalidTypeException("The type " + exp1.type + " and type " + exp2.type + " cant be combined");
+        if (type1.equals(Type.INT) || type2.equals(Type.STRING)) {
+            if (operator.equals("+")){
+                return type1;
+            }
+            if (type1.equals(Type.INT)){
+                if ("-%*/".contains(operator)) {
+                    return Type.INT;
+                } else if (operator.equals("==")
+                        || operator.equals("!=")
+                        || operator.equals(">=")
+                        || operator.equals(">")
+                        || operator.equals("<=")
+                        || operator.equals("<")) {
+                    return Type.BOOLEAN;
+                }
+            }
+            throw new InvalidTypeException("Invalid type " + exp1.type + " must be String or int");
+        } else if (type1.equals(Type.CHAR)) {
+            if (operator.equals("==") || operator.equals("!=")){
+                return Type.BOOLEAN;
+            }
+        } else if (type1.equals(Type.BOOLEAN)) {
+            if (operator.equals("||") || operator.equals("&&") || operator.equals("==") || operator.equals("!=")) {
+                return Type.BOOLEAN;
+            }
+        }
+        throw new InvalidTypeException("Invalid operator " + operator);
     }
 
     @Override

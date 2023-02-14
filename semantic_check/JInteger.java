@@ -13,6 +13,7 @@ public class JInteger extends Expression{
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
+        type = Type.INT;
         return Type.INT;
     }
 
