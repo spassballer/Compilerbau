@@ -41,6 +41,7 @@ public class Unary extends Expression{
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
         switch (operator){
             case "+":
+                expr.codeGen(clars, methodDecl, mv);
                 break;
             case "-":
                 expr.codeGen(clars, methodDecl, mv);
