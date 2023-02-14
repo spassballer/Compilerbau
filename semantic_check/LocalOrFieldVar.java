@@ -31,11 +31,13 @@ public class LocalOrFieldVar extends Expression implements Opcodes {
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
         if(localvars.containsKey(name)){
-            return localvars.get(name);
+            type = localvars.get(name);
+            return type;
         }
         for(FieldDecl fieldVar : clars.fields){
             if(Objects.equals(fieldVar.name, name)){
-                return fieldVar.type;
+                type = fieldVar.type;
+                return type;
             }
         }
         throw new NotDeclaredException("The variable " + name +" is not declared");
