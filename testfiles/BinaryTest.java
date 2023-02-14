@@ -1,4 +1,4 @@
-public class BinaryTest {
+class BinaryTest {
 
     int add(int a, int b){
         return a + b;
