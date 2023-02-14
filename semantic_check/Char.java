@@ -16,6 +16,7 @@ public class Char extends Expression{
 
     @Override
     Type typeCheck(Map<String, Type> localvars,Clars clars) {
+        type = Type.CHAR;
         return Type.CHAR;
     }
 

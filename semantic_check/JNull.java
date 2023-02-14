@@ -12,6 +12,7 @@ public class JNull extends Expression{
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
+        type = Type.NULL;
         return Type.NULL;
     }
 

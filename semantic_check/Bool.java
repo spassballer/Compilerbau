@@ -12,6 +12,7 @@ public class Bool extends Expression {
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
+        type = Type.BOOLEAN;
         return Type.BOOLEAN;
     }
 

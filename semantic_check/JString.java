@@ -13,6 +13,7 @@ public class JString extends Expression{
 
     @Override
     Type typeCheck(Map<String, Type> localvars, Clars clars) {
+        type = Type.STRING;
         return Type.STRING;
     }
 
