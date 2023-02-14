@@ -33,4 +33,5 @@ test:
 	java -cp "asm-7.1.jar:." Main < testfiles/IntTest.java
 	java -cp "asm-7.1.jar:." Main < testfiles/IfTest.java
 	java -cp "asm-7.1.jar:." Main < testfiles/WhileTest.java
+	java -cp "asm-7.1.jar:." Main < testfiles/InstVarTest.java
 
