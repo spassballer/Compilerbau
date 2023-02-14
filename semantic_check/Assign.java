@@ -34,6 +34,7 @@ public class Assign extends StmtExpr implements Opcodes {
                     // primitive types must not be null
                 || (!(varType.equals(Type.BOOLEAN) || varType.equals(Type.CHAR) || varType.equals(Type.INT))
                     && expressionType.equals(Type.NULL))){
+                expression.type = varType;
                 return varType;
             }
             throw new InvalidTypeException("Type " + expressionType + " can't be assigned to " + varType +" type");
