@@ -43,6 +43,8 @@ public class New extends StmtExpr {
             newType = "java/lang/String";
         } else if (Type.OBJECT.equals(type)) {
             newType = "java/lang/Object";
+        }  else if(Type.CLASSTYPE.equals(type)){
+            newType = type.type;
         }
 
         mv.visitTypeInsn(NEW, newType);

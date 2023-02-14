@@ -2,7 +2,9 @@ class InstVarTest {
     int number;
 
     void a(){
-        InstVarTest instVarTest = new InstVarTest();
-        instVarTest.number = 5;
+        InstVarTest instVarTest;
+        instVarTest = new InstVarTest();
+        int i;
+        i = instVarTest.number;
     }
 }
