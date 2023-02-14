@@ -33,6 +33,7 @@ public class MethodCall extends StmtExpr implements Opcodes {
             throw new ParameterException("Method " + name + " expects " + myMethodDecl.parameters.size() + " parameters, but got " + expressions.size());
         }
         for(int i = 0; i<expressions.size(); i++){
+            expressions.get(i).type = expressions.get(i).typeCheck(localVars, clars);
             if(!expressions.get(i).type.equals(myMethodDecl.parameters.get(i).type)){
                 throw new ParameterException("Expected parameter type" + myMethodDecl.parameters.get(i).type + ", but got " + expressions.get(i).type);
 
@@ -45,15 +46,17 @@ public class MethodCall extends StmtExpr implements Opcodes {
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
         StringBuilder parameterTypes = new StringBuilder();
         String descriptor = null;
-        for (Expression expression : expressions)
+        mv.visitVarInsn(ALOAD, 0);
+        for (Expression expression : expressions) {
             parameterTypes.append(expression.type.getASMDescriptor());
+            expression.codeGen(clars, methodDecl, mv);
+        }
         for (MethodDecl method : clars.methods)
             if (this.name.equals(method.name))
                 descriptor = "("+parameterTypes+")"+ method.returnType.getASMDescriptor();
         if (descriptor == null)
             throw new Exception("Could not find method declaration for: " + this.name);
 
-        mv.visitVarInsn(ALOAD, 0);
         mv.visitMethodInsn(INVOKEVIRTUAL, clars.className, name, descriptor, false);
     }
 
