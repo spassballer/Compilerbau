@@ -10,7 +10,7 @@ ws = [ \t\r\n]+
 int = [0123456789]+
 type = (int|String|boolean|char|void)
 bool = (true|false)
-string = \"([^\"]|\\\")+[^\\]\"|\"\"
+string = \"([^\"]|\\\")*\"
 char = '[^']'
 varname = [a-zA-Z|"_"|"-"]+
 

@@ -82,7 +82,7 @@ public class Clars {
     static void writeClassfile(ClassWriter cw) throws IOException {
         byte[] bytes = cw.toByteArray();
         String className = new ClassReader(bytes).getClassName();
-        File outputFile = new File(className + ".class");
+        File outputFile = new File("codegenerierung", className + ".class");
         FileOutputStream output = new FileOutputStream(outputFile);
         output.write(bytes);
         output.close();
