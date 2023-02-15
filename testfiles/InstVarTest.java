@@ -9,6 +9,10 @@ class InstVarTest {
         return number;
     }
 
+    String nullTest(){
+        return null;
+    }
+
     int test(int a){
         InstVarTest instVarTest;
         instVarTest = new InstVarTest();

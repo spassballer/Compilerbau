@@ -4,7 +4,8 @@ public class InstVarTestRunner {
         int a = 20;
 
         System.out.println("------------------------------------------------");
-        System.out.println("1. Test sucessfull: "+(instVarTest.test(a)==a));
+        System.out.println("Instance creation and usage test successful: "+(instVarTest.test(a)==a));
+        System.out.println("Null test successful: "+(instVarTest.nullTest() == null));
         System.out.println("------------------------------------------------");
     }
 

@@ -7,12 +7,12 @@ public class UnaryTestRunner {
         boolean f = false;
 
         System.out.println("------------------------------------------------");
-        System.out.println("NOT sucessful: " + (unaryTest.not(t) == !t));
-        System.out.println("NOT sucessful: " + (unaryTest.not(f) == !f));
-        System.out.println("Positive sucessful: " + (unaryTest.positive(a) == +a));
-        System.out.println("Positive sucessful: " + (unaryTest.positive(b) == +b));
-        System.out.println("Negative sucessful: " + (unaryTest.negative(a) == -a));
-        System.out.println("Negative sucessful: " + (unaryTest.negative(b) == -b));
+        System.out.println("NOT successful: " + (unaryTest.not(t) == !t));
+        System.out.println("NOT successful: " + (unaryTest.not(f) == !f));
+        System.out.println("Positive successful: " + (unaryTest.positive(a) == +a));
+        System.out.println("Positive successful: " + (unaryTest.positive(b) == +b));
+        System.out.println("Negative successful: " + (unaryTest.negative(a) == -a));
+        System.out.println("Negative successful: " + (unaryTest.negative(b) == -b));
         System.out.println("------------------------------------------------");
 
     }
