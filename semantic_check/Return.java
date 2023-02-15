@@ -15,7 +15,11 @@ public class Return extends Statement implements Opcodes {
 
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
-        type = expression.typeCheck(localVars, clars);
+        if(expression == null){
+            type = Type.VOID;
+        } else {
+            type = expression.typeCheck(localVars, clars);
+        }
         return type;
     }
 
