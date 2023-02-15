@@ -18,6 +18,15 @@ public class Type {
     }
 
     public boolean equals(Type type) {
+        if(this.type.equals(Type.STRING.type) || this.type.equals(Type.OBJECT.type) || this.type.equals(Type.CLASSTYPE.type)){
+            if(type.type.equals(Type.NULL.type)){
+                return true;
+            }
+        } else if(this.type.equals(Type.NULL.type)){
+            if(type.type.equals(Type.STRING.type) || type.type.equals(Type.OBJECT.type) || type.type.equals(Type.CLASSTYPE.type)){
+                return true;
+            }
+        }
         return this.type.equals(type.type);
     }
 

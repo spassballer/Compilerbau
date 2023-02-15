@@ -28,12 +28,9 @@ main.class: Main.java yyTokenclass.class javascanner.class
 	javac Main.java
 
 test:
-	java -cp "asm-7.1.jar:." Main < testfiles/BoolTest.java
-	java -cp "asm-7.1.jar:." Main < testfiles/StringTest.java
-	java -cp "asm-7.1.jar:." Main < testfiles/IntTest.java
+	java -cp "asm-7.1.jar:." Main < testfiles/BinaryTest.java
+	java -cp "asm-7.1.jar:." Main < testfiles/UnaryTest.java
 	java -cp "asm-7.1.jar:." Main < testfiles/IfTest.java
 	java -cp "asm-7.1.jar:." Main < testfiles/WhileTest.java
 	java -cp "asm-7.1.jar:." Main < testfiles/InstVarTest.java
-	java -cp "asm-7.1.jar:." Main < testfiles/BinaryTest.java
-	java -cp "asm-7.1.jar:." Main < testfiles/UnaryTest.java
 

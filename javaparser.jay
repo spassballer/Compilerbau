@@ -112,6 +112,7 @@ ifthenelsestatement : IF BRACKETOPEN expression BRACKETCLOSED statement ELSE sta
 whilestatement : WHILE BRACKETOPEN expression BRACKETCLOSED statement { $$ = new While($3, $5); }
 
 returnstatement : RETURN expression { $$ = new Return($2); }
+                | RETURN { $$ = new Return(null); }
 
 stmtExprExpr : stmtExpr { $$ = new StmtExprExpr($1); }
 

@@ -8,9 +8,9 @@ public class WhileTestRunner {
 
         System.out.println("------------------------------------------------");
         while(a < b){ a++; }
-        System.out.println("1. Test sucessfull: " + (whileTest.countToB(a, b) == a));
+        System.out.println("1. Test successful: " + (whileTest.countToB(a, b) == a));
         while(c < d){ c++; d--; }
-        System.out.println("2. Test sucessfull: " + (whileTest.countToBBlock(c, d) == d));
+        System.out.println("2. Test successful: " + (whileTest.countToBBlock(c, d) == d));
         System.out.println("------------------------------------------------");
 
     }

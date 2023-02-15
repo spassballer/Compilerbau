@@ -15,16 +15,19 @@ public class Return extends Statement implements Opcodes {
 
     @Override
     Type typeCheck(Map<String, Type> localVars, Clars clars) {
-        type = expression.typeCheck(localVars, clars);
+        if(expression == null){
+            type = Type.VOID;
+        } else {
+            type = expression.typeCheck(localVars, clars);
+        }
         return type;
     }
 
     @Override
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
-
         if (expression!= null) {
             expression.codeGen(clars, methodDecl, mv);
-            if (this.type.equals(Type.STRING))
+            if (!this.type.isPrimitive())
                 mv.visitInsn(ARETURN);
             else
                 mv.visitInsn(IRETURN);

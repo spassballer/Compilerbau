@@ -52,9 +52,9 @@ public class Assign extends StmtExpr implements Opcodes {
         expression.codeGen(clars, methodDecl, mv);
         if (index != -1)
             if (this.type.isPrimitive())
-                mv.visitVarInsn(ASTORE, index);
-            else
                 mv.visitVarInsn(ISTORE, index);
+            else
+                mv.visitVarInsn(ASTORE, index);
         else
             mv.visitFieldInsn(PUTFIELD, clars.className, name, this.type.getASMDescriptor());
     }
