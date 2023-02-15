@@ -19,7 +19,7 @@ public class Type {
 
     public boolean equals(Type type) {
         if(!type.isPrimitive() && !this.isPrimitive()){
-            if(type.equals(Type.NULL) || this.equals(Type.NULL)){
+            if(type.type.equals(Type.NULL.type) || this.type.equals(Type.NULL.type)){
                 return true;
             }
         }
