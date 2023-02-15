@@ -5,7 +5,7 @@ public class IfTestRunner {
         boolean f = false;
 
         System.out.println("------------------------------------------------");
-        System.out.println("If sucessfull: " + (ifTest.onlyIf(t) == t));
+        System.out.println("If sucessfull: " + (ifTest.onlyIf(t) == !t));
         System.out.println("If/else sucessfull: " + (ifTest.bothIfAndElse(t, t) == t));
         System.out.println("If/else sucessfull: " + (ifTest.bothIfAndElse(t, f) == f));
         System.out.println("If/else sucessfull: " + (ifTest.bothIfAndElse(f, t) == t));
