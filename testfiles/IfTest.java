@@ -1,4 +1,5 @@
 class IfTest {
+    int a;
     boolean onlyIf(boolean a){
         if(a){
             a = !a;

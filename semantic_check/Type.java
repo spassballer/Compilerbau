@@ -46,6 +46,10 @@ public class Type {
             return "C";
         if (this.equals(VOID))
             return "V";
+        if(this.equals(OBJECT))
+            return "Ljava/lang/Object;";
+        if(this.equals(CLASSTYPE))
+            return "L"+ this.type +";";
         throw new Exception("Unknown type: " + this.type);
     }
 

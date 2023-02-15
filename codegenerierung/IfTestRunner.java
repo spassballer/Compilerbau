@@ -10,6 +10,8 @@ public class IfTestRunner {
         System.out.println("If/else successful: " + (ifTest.bothIfAndElse(t, f) == f));
         System.out.println("If/else successful: " + (ifTest.bothIfAndElse(f, t) == t));
         System.out.println("If/else successful: " + (ifTest.bothIfAndElse(f, f) == f));
+        ifTest.testVoidReturn(1, 100);
+        System.out.println("Return successful: true");
         System.out.println("------------------------------------------------");
 
     }
