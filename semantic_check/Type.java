@@ -46,11 +46,11 @@ public class Type {
     }
 
     public Boolean isPrimitive() {
-        if (this.equals(Type.INT))
+        if (this.type.equals(Type.INT.type))
             return true;
-        if (this.equals(Type.CHAR))
+        if (this.type.equals(Type.CHAR.type))
             return true;
-        if (this.equals(Type.BOOLEAN))
+        if (this.type.equals(Type.BOOLEAN.type))
             return true;
         return false;
     }
