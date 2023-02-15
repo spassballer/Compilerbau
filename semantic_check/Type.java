@@ -18,8 +18,12 @@ public class Type {
     }
 
     public boolean equals(Type type) {
-        if(!type.isPrimitive() && !this.isPrimitive()){
-            if(type.type.equals(Type.NULL.type) || this.type.equals(Type.NULL.type)){
+        if(this.type.equals(Type.STRING.type) || this.type.equals(Type.OBJECT.type) || this.type.equals(Type.CLASSTYPE.type)){
+            if(type.type.equals(Type.NULL.type)){
+                return true;
+            }
+        } else if(this.type.equals(Type.NULL.type)){
+            if(type.type.equals(Type.STRING.type) || type.type.equals(Type.OBJECT.type) || type.type.equals(Type.CLASSTYPE.type)){
                 return true;
             }
         }
@@ -46,11 +50,11 @@ public class Type {
     }
 
     public Boolean isPrimitive() {
-        if (this.type.equals(Type.INT.type))
+        if (this.equals(Type.INT))
             return true;
-        if (this.type.equals(Type.CHAR.type))
+        if (this.equals(Type.CHAR))
             return true;
-        if (this.type.equals(Type.BOOLEAN.type))
+        if (this.equals(Type.BOOLEAN))
             return true;
         return false;
     }
