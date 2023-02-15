@@ -39,6 +39,7 @@ public class MethodCall extends StmtExpr implements Opcodes {
 
             }
         }
+        expr.type = expr.typeCheck(localVars, clars);
         return myMethodDecl.returnType;
     }
 
