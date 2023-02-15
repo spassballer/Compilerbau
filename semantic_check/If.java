@@ -49,20 +49,18 @@ public class If extends Statement {
         //IF BLOCK
         ifStmt.codeGen(clars, methodDecl, mv);
 
-        if (elseStmt == null) { //else block does not exist, only have to visit Label for end of if block
-            mv.visitLabel(skipIfLabel);
-        } else {
             /*
             Else Block does exist.
             If inside if block: jump to end of else block
             Visit Label for else Block, generate Bytecode for else block, visit label for end of else block
              */
+        if (elseStmt != null)
             mv.visitJumpInsn(Opcodes.GOTO, skipElseLabel);
-            mv.visitLabel(skipIfLabel);
+        mv.visitLabel(skipIfLabel);
+        if (elseStmt != null)
             elseStmt.codeGen(clars, methodDecl, mv);
-            mv.visitLabel(skipElseLabel);
+        mv.visitLabel(skipElseLabel);
 
-        }
 
 
     }
