@@ -1,27 +1,16 @@
 class WhileTest {
-    void a(int a, int b){
+    int countToB(int a, int b){
         while(a < b){
             a = a + 1;
         }
+        return a;
     }
 
-    void b(int a, int b){
-        while(a > b){
+    int countToBBlock(int a, int b){
+        while(a < b){
             a = a + 1;
+            b = b - 1;
         }
+        return b;
     }
-
-    void c(boolean a, boolean b){
-        while(a && b){
-            a = b;
-        }
-    }
-
-    void d(boolean a, boolean b){
-        while(a || b){
-            a = b;
-        }
-    }
-
-
 }
