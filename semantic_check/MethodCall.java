@@ -46,7 +46,7 @@ public class MethodCall extends StmtExpr implements Opcodes {
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
         StringBuilder parameterTypes = new StringBuilder();
         String descriptor = null;
-        mv.visitVarInsn(ALOAD, 0);
+        expr.codeGen(clars, methodDecl, mv);
         for (Expression expression : expressions) {
             parameterTypes.append(expression.type.getASMDescriptor());
             expression.codeGen(clars, methodDecl, mv);

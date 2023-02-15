@@ -45,7 +45,6 @@ public class Assign extends StmtExpr implements Opcodes {
 
     @Override
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
-        //TODO: assign to a method call?
         int index = methodDecl.getIndexOfLocalVarByName(name);
 
         if (index == -1)

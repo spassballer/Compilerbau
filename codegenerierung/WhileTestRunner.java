@@ -3,10 +3,14 @@ public class WhileTestRunner {
         WhileTest whileTest = new WhileTest();
         int a = 1;
         int b = 100;
+        int c = 1;
+        int d = 100;
 
         System.out.println("------------------------------------------------");
-        System.out.println(whileTest.countToB(a, b));
-        System.out.println(whileTest.countToBBlock(a, b));
+        while(a < b){ a++; }
+        System.out.println("1. Test sucessfull: " + (whileTest.countToB(a, b) == a));
+        while(c < d){ c++; d--; }
+        System.out.println("2. Test sucessfull: " + (whileTest.countToBBlock(c, d) == d));
         System.out.println("------------------------------------------------");
 
     }

@@ -1,16 +1,20 @@
 class InstVarTest {
     int number;
 
+    void set(int number){
+        this.number = number;
+    }
+
+    int get(){
+        return number;
+    }
+
     void a(){
         InstVarTest instVarTest;
         instVarTest = new InstVarTest();
+        instVarTest.set(5);
         int i;
-        i = instVarTest.number;
-        new String("abc");
-        b();
-    }
+        i = instVarTest.get();
 
-    int b(){
-        return this.number;
     }
 }
