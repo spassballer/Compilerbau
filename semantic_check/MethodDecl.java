@@ -16,7 +16,6 @@ public class MethodDecl {
     public Vector<Parameter> parameters;
     public Block block;
     Vector<LocalOrFieldVar> localVar = new Vector<LocalOrFieldVar>();
-    public Label endLabel = new Label();
 
     public MethodDecl(String name, Type returnType, Vector<Parameter> parameters, Block block) {
         this.name = name;
@@ -77,7 +76,9 @@ public class MethodDecl {
         mv.visitCode();
         mv.visitVarInsn(ALOAD, 0);
         block.codeGen(clars, this, mv);
-        mv.visitLabel(endLabel);
+        if(returnType.equals(Type.VOID)){
+            mv.visitInsn(RETURN);
+        }
         mv.visitMaxs(-1, -1);
         mv.visitEnd();
     }

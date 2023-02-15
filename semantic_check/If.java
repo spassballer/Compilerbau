@@ -42,7 +42,7 @@ public class If extends Statement {
         Label skipIfLabel = new Label();
         Label skipElseLabel = new Label();
 
-        cond.codeGen(clars, methodDecl, mv); //Load condition to stack: Still TODO?
+        cond.codeGen(clars, methodDecl, mv);
         mv.visitJumpInsn(Opcodes.IFEQ, skipIfLabel);
 
 
@@ -62,6 +62,26 @@ public class If extends Statement {
         mv.visitLabel(skipElseLabel);
 
 
+
+        /*
+        elseStmt == null:
+        Condition überprüfen: true oder false?
+        Wenn true:
+            Statement ausführen
+        Wenn false:
+            Statement überspringen
+         */
+
+        /*
+        elseStmt != null:
+        Condition überprüfen: true oder false?
+        Wenn true:
+            Statement ausführen
+            Else State überspringen
+        Wenn false:
+            Statement überspringen
+            Else Statement ausführen
+         */
 
     }
 }

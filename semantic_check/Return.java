@@ -25,7 +25,7 @@ public class Return extends Statement implements Opcodes {
 
     @Override
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
-        if (expression!= null) {
+        if (!type.equals(Type.VOID)) {
             expression.codeGen(clars, methodDecl, mv);
             if (!this.type.isPrimitive())
                 mv.visitInsn(ARETURN);
