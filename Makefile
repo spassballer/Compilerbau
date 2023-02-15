@@ -33,4 +33,10 @@ test:
 	java -cp "asm-7.1.jar:." Main < testfiles/IfTest.java
 	java -cp "asm-7.1.jar:." Main < testfiles/WhileTest.java
 	java -cp "asm-7.1.jar:." Main < testfiles/InstVarTest.java
-
+	javac codegenerierung/BinaryTestRunner.java
+	javac codegenerierung/UnaryTestRunner.java
+	javac codegenerierung/IfTestRunner.java
+	javac codegenerierung/WhileTestRunner.java
+	javac codegenerierung/InstVarTestRunner.java
+	javac codegenerierung/TestRunner.java
+	java codegenerierung/TestRunner
