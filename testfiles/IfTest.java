@@ -14,4 +14,13 @@ class IfTest {
             return b;
         }
     }
+
+    void testVoidReturn(int a, int b){
+        while(a < 100){
+            if(a == b){
+                return;
+            }
+            a = a + 3;
+        }
+    }
 }
