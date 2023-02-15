@@ -17,7 +17,7 @@ public class Type {
         this.type = type;
     }
 
-    public  boolean equals(Type type) {
+    public boolean equals(Type type) {
         return this.type.equals(type.type);
     }
 
@@ -40,8 +40,18 @@ public class Type {
         throw new Exception("Unknown type: " + this.type);
     }
 
+    public Boolean isPrimitive() {
+        if (this.equals(Type.INT))
+            return true;
+        if (this.equals(Type.CHAR))
+            return true;
+        if (this.equals(Type.BOOLEAN))
+            return true;
+        return false;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return type;
     }
 }

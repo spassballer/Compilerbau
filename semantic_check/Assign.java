@@ -51,7 +51,7 @@ public class Assign extends StmtExpr implements Opcodes {
             mv.visitVarInsn(ALOAD, 0);
         expression.codeGen(clars, methodDecl, mv);
         if (index != -1)
-            if (this.type.equals(Type.STRING))
+            if (this.type.isPrimitive())
                 mv.visitVarInsn(ASTORE, index);
             else
                 mv.visitVarInsn(ISTORE, index);

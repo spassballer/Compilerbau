@@ -47,7 +47,7 @@ public class LocalOrFieldVar extends Expression implements Opcodes {
     void codeGen(Clars clars, MethodDecl methodDecl, MethodVisitor mv) throws Exception {
         int index = methodDecl.getIndexOfLocalVarByName(name);
         if (index != -1){
-            if (!type.equals(Type.STRING))
+            if (!type.isPrimitive())
                 mv.visitVarInsn(ILOAD, index);
             else
                 mv.visitVarInsn(ALOAD, index);
