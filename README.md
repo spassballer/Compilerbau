@@ -12,7 +12,7 @@
 ### Bedienungsanleitung Java Compiler
 
 1. Projekt klonen
-2.  Im Terminal des Linux Servers`make`  aufrufen. (Testsuit wird kompiliert und ausgeführt)
+2.  Im Terminal des Linux Servers `make`  aufrufen. (Testsuit wird kompiliert und ausgeführt)
 
 ### UML-Diagramm
 
