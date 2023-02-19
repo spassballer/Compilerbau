@@ -14,7 +14,7 @@
 1. Projekt klonen
 2.  Im Terminal des Linux Servers `make`  aufrufen. (Testsuit wird kompiliert und ausgeführt)
 
-Um eigene Java-Klassen zu testen, können die zu testenden Java-Klassen im Ordner "testfiles" eingefügt werden. Zudem muss folgende Zeile im Makefile unter dem Punkt ```Test``` eingefügt werden:
+Um eigene Java-Klassen zu testen, können die zu testenden Java-Klassen im Ordner "testfiles" eingefügt werden. Zudem muss folgende Zeile im Makefile unter dem Punkt ```test``` eingefügt werden:
 ```
 java -cp "asm-7.1.jar:." Main < testfiles/Testklasse.java
 ```
